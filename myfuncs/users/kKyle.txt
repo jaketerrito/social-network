@@ -1,0 +1,7 @@
+username: kKyle
+password: pass
+name: Kyle
+image: aplace
+friends: 
+posts:
+1511048070832 , Yarharhar
