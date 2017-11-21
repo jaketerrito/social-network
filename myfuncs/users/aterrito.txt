@@ -1,8 +1,0 @@
-username: aterrito
-password: pass
-name: Aaron Territo
-image: pictureB.jpg
-friends: jterrito,sterrito,mcorrin,
-posts:
-1348901278123 , I am aaron
-1233214234321 , This is a test
