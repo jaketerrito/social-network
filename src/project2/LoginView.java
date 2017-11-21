@@ -32,7 +32,7 @@ public class LoginView implements View {
 	    		public void actionPerformed(ActionEvent event)
 	    		{
 	    			if(controller.login(usrname.getText(),String.copyValueOf(usrpass.getPassword()))){
-	    				frame.dispose();
+	    				frame.setVisible(false);
 	    			}else{
 	    				usrname.setText("");
 	    				usrpass.setText("");

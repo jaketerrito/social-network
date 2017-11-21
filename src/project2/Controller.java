@@ -19,4 +19,9 @@ public class Controller {
 		}
 		return false;
 	}
+	
+	public void viewProfile(String username) {
+		current = new ProfileView(model.getUser(username),getFriendsPosts());
+		current.draw();
+	}
 }
