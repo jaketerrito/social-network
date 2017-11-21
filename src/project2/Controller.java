@@ -13,6 +13,7 @@ public class Controller {
 	
 	public boolean login(String username, String password){
 		if (model.setUser(username, password)) {
+			current.close();
 			current = new ProfileView(model.getUser(username),model.getFriendsPosts());
 			current.draw();
 			return true;
@@ -21,6 +22,7 @@ public class Controller {
 	}
 	
 	public void viewProfile(String username) {
+		current.close();
 		current = new ProfileView(model.getUser(username),getFriendsPosts());
 		current.draw();
 	}

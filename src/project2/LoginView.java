@@ -6,13 +6,17 @@ import javax.swing.*;
 
 public class LoginView implements View {
 	private Controller controller;
-	
+	private JFrame;
 	public LoginView(Controller controller){
 		this.controller = controller;
 	}
 	
+	public void close() {
+		frame.dispose();
+	}
+	
 	public void draw  () {		
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 	    final int FIELD_WIDTH = 25;
 	    JTextField name = new JTextField();
 	    name.setEditable(false);
