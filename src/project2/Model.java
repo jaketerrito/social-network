@@ -1,9 +1,11 @@
 package project2;
 
 import java.io.*;
+import java.nio.file.*;
 import java.util.*;
 
-//shouldn't be instances of these lists because other running versions could change the files at anytime and make these invalid
+//generate posts and users with a factory?
+//generate pieces of view with a factory?
 
 public class Model {
 	private String usersDir;
@@ -14,7 +16,7 @@ public class Model {
 	}
 	
 	//makes list of users from database
-	//should not read if toFile is happening
+	//should not read if toFile is happening or if a function is readingUsers and using that list to write files
 	public HashMap<String,User> readUsers() {
 		User temp;
 		HashMap<String,User> userList = new HashMap<String,User>();
@@ -68,12 +70,12 @@ public class Model {
 		return false;
 	}
 	
-	public ArrayList<User> search(String sub){
-		ArrayList<User>matches = new ArrayList<User>();
+	public ArrayList<String> search(String sub){
+		ArrayList<String> matches = new ArrayList<String>();
 		HashMap<String,User> users = readUsers();
 		for(String username: users.keySet()) {
-			if((getUser(username)).getName().contains(sub)) {
-					matches.add(getUser(username));
+			if((users.get(username)).getName().contains(sub)) {
+					matches.add(username);
 			}
 		}
 		return matches;
@@ -87,5 +89,31 @@ public class Model {
 		User user = getUser(username);
 		user.addFriend(friendName);
 		user.toFile(usersDir);
+		user = getUser(friendName);
+		user.addFriend(username);
+		user.toFile(usersDir);
 	}
+	
+	public void like(String username,Long time) {
+		User user = getUser(username);
+		user.like(time,this.username);
+		user.toFile(usersDir);
+	}
+	
+	public void deactivate() {
+		try {
+		    Files.delete(Paths.get(usersDir + "/" + username + ".txt"));
+		} catch (Exception x) {
+			System.out.println(x.getMessage());
+		}
+		//delete any reference to this user in likes or friends
+		HashMap<String,User> userList = readUsers();
+		User temp;
+		for(String username:userList.keySet()) {
+			temp = userList.get(username);
+			temp.removeFriend(this.username);
+			temp.toFile(usersDir);
+		}
+	}
+	
 }

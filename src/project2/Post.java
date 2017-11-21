@@ -48,6 +48,17 @@ public class Post implements Comparable<Post>{
 	   return likes;
    }
    
+   public void removeLike(String username) {
+	   likes.remove(username);
+   }
+   
+   public void addLike(String username) {
+	   if(likes.contains(username)) {
+		   return;
+	   }
+	   likes.add(username);
+   }
+   
    @Override
    public int compareTo(Post other) {
 	   return (int) (other.getTime() - time);

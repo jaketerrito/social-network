@@ -1,6 +1,5 @@
 package project2;
 
-import java.io.*;
 
 public class Controller {
 	Model model;

@@ -1,0 +1,8 @@
+username: jterrito
+password: pass
+name: Jacob Territo
+image: picture.jpg
+friends: aterrito,
+posts:
+1234567890123 ,aterrito,jterrito, I LIKE TURTLES 
+1234587239103 ,jterito, RIP lil peep

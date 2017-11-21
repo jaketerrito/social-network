@@ -21,7 +21,17 @@ public class User{
 	   return name;
    }
    
+   public void removeFriend(String friendName) {
+	   friends.remove(friendName);
+	   for(Post post: posts) {
+			post.removeLike(friendName);
+		}
+   }
+   
    public void addFriend(String friendName) {
+	   if(friends.contains(friendName)) {
+		   return;
+	   }
 	   friends.add(friendName);
    }
    
@@ -36,6 +46,15 @@ public class User{
    public void post(String text) {
 	   posts.add(new Post(this,text));
 	   Collections.sort(posts);
+   }
+   
+   public void like(Long time, String liker) {
+	   for(Post post: posts) {
+		   if(post.getTime() == time) {
+			   post.addLike(liker);
+			   return;
+		   }
+	   }
    }
    
    public boolean isPassword(String guess) {
@@ -63,7 +82,8 @@ public class User{
     	  line.close();
     	  line = new Scanner(in.readLine());
     	  line.next(); //name:
-    	  name = line.next();
+    	  line.useDelimiter("\\n");
+          name = line.next().substring(1);
     	  line.close();
     	  line = new Scanner(in.readLine());
     	  line.next(); //image:

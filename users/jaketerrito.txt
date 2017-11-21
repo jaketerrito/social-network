@@ -1,0 +1,6 @@
+username: jaketerrito
+password: bobobo
+name: Yake Terry
+image: image.jpg
+friends: 
+posts:
