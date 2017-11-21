@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class LoginView implements View {
 	private Controller controller;
-	private JFrame;
+	private JFrame frame;
 	public LoginView(Controller controller){
 		this.controller = controller;
 	}
@@ -20,16 +20,32 @@ public class LoginView implements View {
 	    final int FIELD_WIDTH = 25;
 	    JTextField name = new JTextField();
 	    name.setEditable(false);
+	    
 	    JTextField pass = new JTextField();
 	    pass.setEditable(false);
+	    
 	    JTextField usrname = new JTextField(FIELD_WIDTH);
 	    name.setText("username:");
+	    
 	    JPasswordField usrpass = new JPasswordField(FIELD_WIDTH);
 	    pass.setText("password:");
-	    JButton loginButton = new JButton("Login");
+	    
 	    JTextField wrong = new JTextField();
 	    wrong.setEditable(false);
-	    wrong.setText("   INVALID USERNAME AND PASSWORD COMBINATION   ");
+	    wrong.setText("   Invalid username or password.   ");
+	    
+	    JButton loginButton = new JButton("Login");
+	    JButton registerButton = new JButton("Register");
+	    registerButton.addActionListener(new
+		    	ActionListener()
+		    	{
+		    		public void actionPerformed(ActionEvent event)
+		    		{
+		    			controller.register();
+		    		}
+		        });
+	    
+	    
 	    loginButton.addActionListener(new
 	    	ActionListener()
 	    	{
@@ -52,6 +68,7 @@ public class LoginView implements View {
 	      frame.add(pass);
 	      frame.add(usrpass);
 	      frame.add(loginButton);
+	      frame.add(registerButton);
 	      frame.setLayout(new FlowLayout());
 	      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	      frame.setVisible(true);

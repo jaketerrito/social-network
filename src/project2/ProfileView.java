@@ -19,6 +19,10 @@ public class ProfileView implements View{
 		this.friendsPosts = friendsPosts;
 	}
 	
+	public void close() {
+		System.out.println("Closing Profiile!");
+	}
+	
 	public void draw(){
         System.out.println("name: " + usr.getName());
         System.out.println("location: the picture");

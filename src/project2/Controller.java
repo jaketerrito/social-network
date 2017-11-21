@@ -23,7 +23,28 @@ public class Controller {
 	
 	public void viewProfile(String username) {
 		current.close();
-		current = new ProfileView(model.getUser(username),getFriendsPosts());
+		current = new ProfileView(model.getUser(username),model.getFriendsPosts());
 		current.draw();
 	}
+	
+	public void register() {
+		current.close();
+		current = new RegisterView(this);
+		current.draw();
+	}
+	
+	public void registerUser(String username,String password,String name, String imageLocation) {
+		model.register(username, password, name, imageLocation);
+		current.close();
+		current = new LoginView(this);
+		current.draw();
+	}
+	
+	public boolean usernameAvailable(String username) {
+		if(null == model.getUser(username)){
+			return true;
+		}
+		return false;
+	}
+	
 }
