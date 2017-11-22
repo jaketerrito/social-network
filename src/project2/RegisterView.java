@@ -31,7 +31,7 @@ public class RegisterView implements View{
 	private JTextField imageInput;
 	private JButton fileSelectorButton;
 	private JButton registerButton;
-	
+	private JTextField nameFail;
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -143,6 +143,15 @@ public class RegisterView implements View{
 		frame.getContentPane().add(txtFullName, gbc_txtFullName);
 		txtFullName.setColumns(10);
 		
+		nameFail = new JTextField();
+		nameFail.setEditable(false);
+		GridBagConstraints gbc_nameFail = new GridBagConstraints();
+		gbc_nameFail.anchor = GridBagConstraints.WEST;
+		gbc_nameFail.insets = new Insets(0, 0, 5, 5);
+		gbc_nameFail.gridx = 2;
+		gbc_nameFail.gridy = 3;
+		frame.getContentPane().add(nameFail, gbc_nameFail);
+		
 		nameInput = new JTextField();
 		GridBagConstraints gbc_nameInput = new GridBagConstraints();
 		gbc_nameInput.insets = new Insets(0, 0, 5, 5);
@@ -206,30 +215,27 @@ public class RegisterView implements View{
 		         {
 		            public void actionPerformed(ActionEvent event)
 		            {
-		            	//add more username contraints like comma and space especially
-		            	if(!controller.usernameAvailable(usernameInput.getText())){
-		    				passwordInput.setText("");
-		    				passwordConfirmationInput.setText("");
-		    				usernameFail.setText("Username taken.");
-		    			}else if(usernameInput.getText().equals("")){
-		    				usernameFail.setText("Need a username.");
-		    			}else {
-		    				usernameFail.setText("");
-		    			}
-		            	//add more password contraints.
-		            	if(!(String.copyValueOf(passwordInput.getPassword())).equals(String.copyValueOf(passwordConfirmationInput.getPassword()))){
-		    				passwordInput.setText("");
-		    				passwordConfirmationInput.setText("");
-		    				passwordConfirmationFail.setText("Does not match.");
-		            	}else if((String.copyValueOf(passwordInput.getPassword())).equals("")){
-							passwordConfirmationFail.setText("Need a password.");
+		            	if(nameInput.getText().equals("")) {
+		            		nameFail.setText("Need a name");
 		            	}else {
-		            		passwordConfirmationFail.setText("");
+		            		nameFail.setText("");
 		            	}
 		            	
-		            	if(passwordConfirmationFail.getText().equals("") && usernameFail.getText().equals("") && !(nameInput.getText().equals(""))) {
+		            	String usernameProblem = controller.approveUsername(usernameInput.getText());
+		            	usernameFail.setText(usernameProblem);
+
+		            	String passwordProblem = controller.approvePassword(String.copyValueOf(passwordInput.getPassword()));
+		            	passwordConfirmationFail.setText(passwordProblem);
+		            	if(!(String.copyValueOf(passwordInput.getPassword())).equals(String.copyValueOf(passwordConfirmationInput.getPassword()))){
+		            		passwordConfirmationFail.setText("Does not match.");
+		            	}
+		            	
+		            	if(passwordConfirmationFail.getText().equals("") && usernameFail.getText().equals("") && !(nameInput.getText().equals("")) && !(imageInput.getText().equals(""))) {
 		            		controller.registerUser(usernameInput.getText(),(String.copyValueOf(passwordInput.getPassword())),nameInput.getText(),imageInput.getText());
 		            	}
+		            	
+		            	passwordInput.setText("");
+	    				passwordConfirmationInput.setText("");
 		            	frame.pack();
 		            }
 		         });

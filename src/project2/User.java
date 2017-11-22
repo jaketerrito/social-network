@@ -61,6 +61,10 @@ public class User{
 	   return password.equals(guess);
    }
    
+   public void setImage(String imageLocation) {
+	   this.imageLocation = imageLocation;
+   }
+   
    public User(String username, String password, String name, String imageLocation) {
 	   this.username = username;
 	   this.password = password;

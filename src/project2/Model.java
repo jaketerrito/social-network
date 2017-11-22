@@ -74,7 +74,7 @@ public class Model {
 		ArrayList<String> matches = new ArrayList<String>();
 		HashMap<String,User> users = readUsers();
 		for(String username: users.keySet()) {
-			if((users.get(username)).getName().contains(sub)) {
+			if((users.get(username)).getName().toLowerCase().contains(sub.toLowerCase())) {
 					matches.add(username);
 			}
 		}
@@ -116,4 +116,32 @@ public class Model {
 		}
 	}
 	
+	public String approveUsername(String username) {
+		if(username.equals("")) {
+			return "Need username";
+		}
+		if(username.contains(" ") || username.contains("\n") || username.contains(",")) {
+			return "No special characters";
+		}
+		if(getUser(username) != null) {
+			return "Username taken";
+		}
+		return "";
+	}
+	
+	public String approvePassword(String password) {
+		if(password.equals("")) {
+			return "Need password";
+		}
+		if(password.contains(" ") || password.contains("\n") || password.contains(",")) {
+			return "No special characters";
+		}
+		return "";
+	}
+	
+	public void changeImage(String imageLocation) {
+		User user = getUser(username);
+		user.setImage(imageLocation);
+		user.toFile(usersDir);
+	}
 }

@@ -39,11 +39,20 @@ public class Controller {
 		current.draw();
 	}
 	
-	public boolean usernameAvailable(String username) {
-		if(null == model.getUser(username)){
-			return true;
-		}
-		return false;
+	public String approveUsername(String username) {
+		return model.approveUsername(username);
+	}
+	
+	public String approvePassword(String password) {
+		return model.approvePassword(password);
+	}
+	
+	public void like(String username, Long time) {
+		model.like(username, time);
+	}
+	
+	public void changeImage(String imageLocation) {
+		model.changeImage(imageLocation);
 	}
 	
 }
