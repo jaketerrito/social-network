@@ -1,8 +1,8 @@
 username: jterrito
 password: pass
 name: Jacob Territo
-image: picture.jpg
-friends: aterrito,
+image: defaultPic.png
+friends: aterrito,kKyle,jaketerrito,anotherone,abcdefg,newguy
 posts:
-1234567890123 ,aterrito,jterrito, I LIKE TURTLES 
-1234587239103 ,jterito, RIP lil peep
+1234567890123 ,jterrito,aterrito, I LIKE TURTLES 
+1234587239103 ,aterrito, RIP lil peep

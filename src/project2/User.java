@@ -65,6 +65,10 @@ public class User{
 	   this.imageLocation = imageLocation;
    }
    
+   public String getImage() {
+	   return imageLocation;
+   }
+   
    public User(String username, String password, String name, String imageLocation) {
 	   this.username = username;
 	   this.password = password;

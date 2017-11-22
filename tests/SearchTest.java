@@ -13,16 +13,12 @@ class SearchTest {
 		model.register("lake", "pass", "lake smith", "asd");
 		model.register("snake", "pass", "snake derrito", "asd");
 		
-		for(String name: model.search("ake")) {
-			System.out.println(name);
-		}
+		assertTrue(model.search("Ake").contains("jake"));
+		assertTrue(model.search("akE").contains("lake"));
+		assertTrue(model.search("aKe").contains("snake"));
 		
-		assertTrue(model.search("ake").contains("jake"));
-		assertTrue(model.search("ake").contains("lake"));
-		assertTrue(model.search("ake").contains("snake"));
-		
-		assertTrue(model.search("errito").contains("snake"));
-		assertTrue(model.search("errito").contains("jake"));
+		assertTrue(model.search("eRrito").contains("snake"));
+		assertTrue(model.search("erritO").contains("jake"));
 		assertFalse(model.search("errito").contains("lake"));
 	}
 

@@ -34,6 +34,15 @@ public class Model {
 		user.toFile(usersDir);
 	}
 	
+	public ArrayList<String> usernameToName(ArrayList<String> usernames){
+		ArrayList<String> names  = new ArrayList<String>();
+		HashMap<String,User> users = readUsers();
+		for(String username: usernames) {
+			names.add(users.get(username).getName());
+		}
+		return names;
+	}
+	
 	public ArrayList<Post> getFriendsPosts(){
 		ArrayList<Post> posts = new ArrayList<Post>();
 		HashMap<String,User> users = readUsers();
@@ -82,6 +91,9 @@ public class Model {
 	}
 	
 	public void register(String username, String password, String name, String imageLocation){
+		if(imageLocation.equals("")) {
+			imageLocation = "defaultPic.png";
+		}
 		new User(username,password,name,imageLocation).toFile(usersDir);;
 	}
 	

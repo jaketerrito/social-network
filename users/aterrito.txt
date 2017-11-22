@@ -1,7 +1,7 @@
 username: aterrito
 password: pass
 name: Aaron Territo
-image: pictureB.jpg
+image: defaultPic.png
 friends: jterrito,
 posts:
 1348901278123 , I am aaron

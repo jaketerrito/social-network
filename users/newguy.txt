@@ -1,7 +1,6 @@
-username: kKyle
+username: newguy
 password: pass
-name: Kyle
+name: Guy
 image: defaultPic.png
 friends: jterrito
 posts:
-1511207453626 , Yarharhar

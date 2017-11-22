@@ -230,7 +230,7 @@ public class RegisterView implements View{
 		            		passwordConfirmationFail.setText("Does not match.");
 		            	}
 		            	
-		            	if(passwordConfirmationFail.getText().equals("") && usernameFail.getText().equals("") && !(nameInput.getText().equals("")) && !(imageInput.getText().equals(""))) {
+		            	if(passwordConfirmationFail.getText().equals("") && usernameFail.getText().equals("") && !(nameInput.getText().equals(""))) {
 		            		controller.registerUser(usernameInput.getText(),(String.copyValueOf(passwordInput.getPassword())),nameInput.getText(),imageInput.getText());
 		            	}
 		            	
