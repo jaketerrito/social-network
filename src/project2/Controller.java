@@ -4,6 +4,7 @@ package project2;
 public class Controller {
 	Model model;
 	View current;
+	String user;
 	public Controller(){
 		model = new Model("users");
 		current = new LoginView(this);
@@ -13,6 +14,7 @@ public class Controller {
 	public boolean login(String username, String password){
 		if (model.setUser(username, password)) {
 			current.close();
+			user = username;
 			viewProfile(username);
 			return true;
 		}
@@ -22,7 +24,7 @@ public class Controller {
 	public void viewProfile(String username) {
 		current.close();
 		User subject = model.getUser(username);
-		current = new ProfileView(subject, model.usernameToName(subject.getFriends()),model.getFriendsPosts(),this);
+		current = new ProfileView(user,subject, model.usernameToName(subject.getFriends()),model.getFriendsPosts(),this);
 		current.draw();
 	}
 	

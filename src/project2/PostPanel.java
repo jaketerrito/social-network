@@ -32,8 +32,8 @@ public class PostPanel extends JPanel {
 		
 		JButton btnUser;
 		if(user.getUsername().equals(post.getUsername())) {
-			btnUser = new JButton(user.getName());
-		} else {
+			btnUser = new JButton(user.getUsername());
+		}else {
 			btnUser = new JButton(friendsNames.get(user.getFriends().indexOf(post.getUsername())));
 		}
 		btnUser.addActionListener(new ActionListener() {
@@ -53,7 +53,9 @@ public class PostPanel extends JPanel {
 		add(btnUser, gbc_btnUser);
 		
 		JTextArea txtrPostText = new JTextArea();
-		//txtrPostText.setPreferredSize(new Dimension(30,30));
+		txtrPostText.setWrapStyleWord(true);
+		txtrPostText.setPreferredSize(new Dimension(500,100));
+		txtrPostText.setLineWrap(true);
 		txtrPostText.setEditable(false);
 		txtrPostText.setText(post.getText());
 		GridBagConstraints gbc_txtrPostText = new GridBagConstraints();
@@ -79,8 +81,18 @@ public class PostPanel extends JPanel {
 		
 		JButton btnLikes = new JButton("Like... " + post.getLikes().size() + " others like this");
 		StringBuilder s = new StringBuilder();
-	    for(String like: post.getLikes()){
-	       s.append(like + ",");
+		int i = 1;
+		ArrayList<String> likes = post.getLikes();
+	    for(String like: likes){
+	       if(likes.size() == 1) {
+	    	   s.append(like);
+	       }
+	       if(i == likes.size()) {
+	    	   s.append(" and " + like);
+	       } else {
+	    	   s.append(like + ",");
+	       }
+	       i++;
 	    }
 		btnLikes.setToolTipText(s.toString());
 		btnUser.addActionListener(new ActionListener() {
