@@ -6,7 +6,6 @@ public class Post implements Comparable<Post>{
    private Long time;
    private String post;
    private ArrayList<String> likes = new ArrayList<String>();
-
    public Post(){} //for testing
    
    //Construct new post

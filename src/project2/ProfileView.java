@@ -13,14 +13,14 @@ import javax.swing.*;
 public class ProfileView implements View{
 	private User user;
 	private ArrayList<Post> friendsPosts;
-	private ArrayList<String> friends;
+	private ArrayList<String> friendsNames;
 	private JFrame frame;
 	private Controller controller;
 	
-	public ProfileView(User user,ArrayList<String> friends, ArrayList<Post> friendsPosts, Controller controller) {
+	public ProfileView(User user,ArrayList<String> friendsNames, ArrayList<Post> friendsPosts, Controller controller) {
 		this.user = user;
 		this.friendsPosts = friendsPosts;
-		this.friends = friends;
+		this.friendsNames = friendsNames;
 		this.controller = controller;
 	}
 	
@@ -60,17 +60,19 @@ public class ProfileView implements View{
 		gbc_friendsListScroll.anchor = GridBagConstraints.WEST;
 		gbc_friendsListScroll.gridx = 0;
 		gbc_friendsListScroll.gridy = 1;
-		friendsListScroll.setPreferredSize(new Dimension(150, 100));
+		friendsListScroll.setPreferredSize(new Dimension(150, 200));
         friendsListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        friendsListScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		frame.getContentPane().add(friendsListScroll, gbc_friendsListScroll);
 		
 		JTextField friendsTitle = new JTextField("Friends:");
 		friendsTitle.setEditable(false);
+
 		friendsList.add(friendsTitle);
 		JButton temp;
-		for(int i = 0; i < friends.size();i++){
+		for(int i = 0; i < friendsNames.size();i++){
 			final int index = i;
-			temp = new JButton(friends.get(index));
+			temp = new JButton(friendsNames.get(index));
 			temp.addActionListener(new
 			         ActionListener()
 			         {
@@ -83,20 +85,31 @@ public class ProfileView implements View{
 		}
 		
 		
-		
 		JPanel userWall = new JPanel();
-		userWall.setToolTipText("Add jpanel posts");
-		GridBagConstraints gbc_userWall = new GridBagConstraints();
-		gbc_userWall.insets = new Insets(0, 0, 5, 0);
-		gbc_userWall.fill = GridBagConstraints.BOTH;
-		gbc_userWall.gridx = 2;
-		gbc_userWall.gridy = 1;
-		frame.getContentPane().add(userWall, gbc_userWall);
-		userWall.setLayout(new BoxLayout(userWall, BoxLayout.X_AXIS));
+		userWall.setLayout(new BoxLayout(userWall, BoxLayout.Y_AXIS));
 		
-		JScrollBar scrollBar_2 = new JScrollBar();
-		userWall.add(scrollBar_2);
+		JScrollPane userWallScroll = new JScrollPane(userWall);
+		GridBagConstraints gbc_userWallScroll = new GridBagConstraints();
+		gbc_userWallScroll.insets = new Insets(0, 0, 5, 0);
+		gbc_userWallScroll.fill = GridBagConstraints.BOTH;
+		gbc_userWallScroll.gridx = 2;
+		gbc_userWallScroll.gridy = 1;
+		userWallScroll.setPreferredSize(new Dimension(800,300));
+		frame.getContentPane().add(userWallScroll, gbc_userWallScroll);
+		userWallScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		userWallScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
+		JTextField wallTitle = new JTextField("Wall:");
+		wallTitle.setEditable(false);
+
+		userWall.add(wallTitle);
+		PostPanel tempPanel;
+		for(Post post: user.getPosts()){
+			tempPanel = new PostPanel(user, post, friendsNames,controller);
+			userWall.add(tempPanel);
+		}
+		
+		 
 		JPanel newsFeed = new JPanel();
 		newsFeed.setToolTipText("ADD special post jpanels");
 		GridBagConstraints gbc_newsFeed = new GridBagConstraints();
@@ -111,44 +124,5 @@ public class ProfileView implements View{
 		
 		frame.pack();
 		frame.setVisible(true);
-		/*
-        System.out.println("name: " + usr.getName());
-        System.out.println("location: the picture");
-        //Friends
-        System.out.println("friends: ");
-        for(String friend: usr.getFriends()){
-           System.out.print(friend +", ");
-        }
-        System.out.println();
-        //Wall
-        System.out.println("MYWALL:");
-        for(Post post:usr.getPosts()){
-           System.out.println("post:");
-           System.out.println("\t" + post.getUsername() + " " + post.getTime());
-           System.out.println("\t" + post.getText());
-           System.out.print("\tlikes: ");
-           for(String like:post.getLikes()){
-              System.out.print(like + ", ");
-           }
-           System.out.println();
-           System.out.println();
-        }
-        
-        //NewsFeed
-        System.out.println("NEWSFEED:");
-        for(Post post: friendsPosts) {
-        	System.out.println("post:");
-            System.out.println("\t" + post.getUsername() + " " + post.getTime());
-            System.out.println("\t" + post.getText());
-            System.out.print("\tlikes: ");
-            for(String like:post.getLikes()){
-               System.out.print(like + ", ");
-            }
-            System.out.println();
-            System.out.println();
-        }
-		
-		
-		*/
 	}
 }
