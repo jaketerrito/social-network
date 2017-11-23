@@ -86,8 +86,7 @@ public class PostPanel extends JPanel {
 	    for(String like: likes){
 	       if(likes.size() == 1) {
 	    	   s.append(like);
-	       }
-	       if(i == likes.size()) {
+	       }else if(i == likes.size()) {
 	    	   s.append(" and " + like);
 	       } else {
 	    	   s.append(like + ",");
@@ -95,7 +94,7 @@ public class PostPanel extends JPanel {
 	       i++;
 	    }
 		btnLikes.setToolTipText(s.toString());
-		btnUser.addActionListener(new ActionListener() {
+		btnLikes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.like(post.getUsername(),post.getTime());
 			}

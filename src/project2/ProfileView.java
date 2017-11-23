@@ -18,6 +18,10 @@ public class ProfileView implements View{
 	private Controller controller;
 	private String viewer;
 	
+	public String getUser(){
+		return user.getUsername();
+	}
+	
 	public ProfileView(String viewer,User user,ArrayList<String> friendsNames, ArrayList<Post> friendsPosts, Controller controller) {
 		this.user = user;
 		this.friendsPosts = friendsPosts;

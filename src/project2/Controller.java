@@ -51,6 +51,7 @@ public class Controller {
 	
 	public void like(String username, Long time) {
 		model.like(username, time);
+		viewProfile(((ProfileView)current).getUser());
 	}
 	
 	public void changeImage(String imageLocation) {
