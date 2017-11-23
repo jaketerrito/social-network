@@ -1,12 +1,10 @@
 package project2;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 

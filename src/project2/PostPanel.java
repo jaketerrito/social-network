@@ -1,17 +1,19 @@
 package project2;
 
 import javax.swing.JPanel;
-import java.awt.GridBagLayout;
 import javax.swing.JButton;
-import java.awt.GridBagConstraints;
 import javax.swing.JTextArea;
-import java.awt.Insets;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.*;
 import java.text.*;
 import java.awt.Dimension;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
 public class PostPanel extends JPanel {
 	/**
 	 * 
@@ -23,34 +25,8 @@ public class PostPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public PostPanel(User user,Post post, ArrayList<String> friendsNames,Controller controller) {
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		setLayout(gridBagLayout);
-		
-		JButton btnUser;
-		if(user.getUsername().equals(post.getUsername())) {
-			btnUser = new JButton(user.getUsername());
-		}else {
-			btnUser = new JButton(friendsNames.get(user.getFriends().indexOf(post.getUsername())));
-		}
-		btnUser.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(user.getUsername().equals(post.getUsername())) {
-					controller.viewProfile(user.getUsername());
-				}else {
-					controller.viewProfile(user.getFriends().get(user.getFriends().indexOf(post.getUsername())));
-				}
-			}
-		});
-		GridBagConstraints gbc_btnUser = new GridBagConstraints();
-		gbc_btnUser.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnUser.insets = new Insets(0, 0, 5, 5);
-		gbc_btnUser.gridx = 0;
-		gbc_btnUser.gridy = 0;
-		add(btnUser, gbc_btnUser);
+		setBackground(new Color(192, 192, 192));
+		setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.BLACK, null));
 		
 		JTextArea txtrPostText = new JTextArea();
 		txtrPostText.setWrapStyleWord(true);
@@ -58,25 +34,13 @@ public class PostPanel extends JPanel {
 		txtrPostText.setLineWrap(true);
 		txtrPostText.setEditable(false);
 		txtrPostText.setText(post.getText());
-		GridBagConstraints gbc_txtrPostText = new GridBagConstraints();
-		gbc_txtrPostText.insets = new Insets(0, 0, 5, 0);
-		gbc_txtrPostText.anchor = GridBagConstraints.NORTHWEST;
-		gbc_txtrPostText.fill = GridBagConstraints.BOTH;
-		gbc_txtrPostText.gridx = 1;
-		gbc_txtrPostText.gridy = 0;
-		add(txtrPostText, gbc_txtrPostText);
 		
 		txtTime = new JTextField();
+		txtTime.setBackground(new Color(192, 192, 192));
 		txtTime.setEditable(false);
 		SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm");
 	    Date resultdate = new Date(post.getTime());
 		txtTime.setText(sdf.format(resultdate));
-		GridBagConstraints gbc_txtTime = new GridBagConstraints();
-		gbc_txtTime.anchor = GridBagConstraints.EAST;
-		gbc_txtTime.insets = new Insets(0, 0, 0, 5);
-		gbc_txtTime.gridx = 0;
-		gbc_txtTime.gridy = 1;
-		add(txtTime, gbc_txtTime);
 		txtTime.setColumns(10);
 		
 		JButton btnLikes = new JButton("Like... " + post.getLikes().size() + " others like this");
@@ -99,10 +63,53 @@ public class PostPanel extends JPanel {
 				controller.like(post.getUsername(),post.getTime());
 			}
 		});
-		GridBagConstraints gbc_btnLikes = new GridBagConstraints();
-		gbc_btnLikes.gridx = 1;
-		gbc_btnLikes.gridy = 1;
-		add(btnLikes, gbc_btnLikes);
+		
+		JButton btnUser;
+		if(user.getUsername().equals(post.getUsername())) {
+			btnUser = new JButton(user.getUsername());
+		}else {
+			btnUser = new JButton(friendsNames.get(user.getFriends().indexOf(post.getUsername())));
+		}
+		btnUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(user.getUsername().equals(post.getUsername())) {
+					controller.viewProfile(user.getUsername());
+				}else {
+					controller.viewProfile(user.getFriends().get(user.getFriends().indexOf(post.getUsername())));
+				}
+			}
+		});
+		btnUser.setBackground(new Color(255, 255, 255));
+		btnUser.setForeground(new Color(0, 0, 0));
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnUser)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(txtrPostText, GroupLayout.PREFERRED_SIZE, 348, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(txtTime, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnLikes)))
+					.addGap(28))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtrPostText, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnUser))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(txtTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnLikes))
+					.addGap(30))
+		);
+		setLayout(groupLayout);
 
 	}
 
