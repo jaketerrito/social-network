@@ -24,7 +24,7 @@ public class PostPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public PostPanel(User user,Post post, ArrayList<String> friendsNames,Controller controller) {
+	public PostPanel(User user,Post post,HashMap<String,User> users,Controller controller) {
 		setBackground(new Color(192, 192, 192));
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.BLACK, null));
 		
@@ -47,6 +47,7 @@ public class PostPanel extends JPanel {
 		int i = 1;
 		ArrayList<String> likes = post.getLikes();
 	    for(String like: likes){
+	       like = users.get(like).getName();
 	       if(likes.size() == 1) {
 	    	   s.append(like);
 	       }else if(i == likes.size()) {
@@ -65,16 +66,16 @@ public class PostPanel extends JPanel {
 		
 		JButton btnUser;
 		if(user.getUsername().equals(post.getUsername())) {
-			btnUser = new JButton(user.getUsername());
+			btnUser = new JButton(user.getName());
 		}else {
-			btnUser = new JButton(friendsNames.get(user.getFriends().indexOf(post.getUsername())));
+			btnUser = new JButton(users.get(post.getUsername()).getName());
 		}
 		btnUser.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(user.getUsername().equals(post.getUsername())) {
 					controller.viewProfile(user.getUsername());
 				}else {
-					controller.viewProfile(user.getFriends().get(user.getFriends().indexOf(post.getUsername())));
+					controller.viewProfile(post.getUsername());
 				}
 			}
 		});
@@ -88,7 +89,7 @@ public class PostPanel extends JPanel {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnUser, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnUser, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(txtTime, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE))
 						.addComponent(txtrPostText, GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)

@@ -57,7 +57,6 @@ public class Model {
 				posts.add(post);
 			}
 		}
-		Collections.sort(posts);
 		return posts;
 	}
 	

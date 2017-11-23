@@ -9,14 +9,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
-
+import java.util.*;
 public class MenuBar extends JPanel {
 	private JTextField txtSearch;
 
 	/**
 	 * Create the panel.
 	 */
-	public MenuBar() {
+	public MenuBar(String viewer, User user, HashMap<String,User> users,Controller controller) {
 		
 		txtSearch = new JTextField();
 		txtSearch.setColumns(10);
@@ -28,6 +28,18 @@ public class MenuBar extends JPanel {
 		});
 		
 		JButton btnHome = new JButton("Home");
+		if(viewer == null) {
+			btnHome.setText(user.getName() + "'s Profile");
+		}
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(viewer == null) {
+					controller.viewProfile(user.getUsername());
+				}else {
+					controller.home();
+				}
+			}
+		});
 		
 		JButton btnSettings = new JButton("Settings");
 		btnSettings.addActionListener(new ActionListener() {
@@ -38,13 +50,19 @@ public class MenuBar extends JPanel {
 		JButton btnNewButton_1 = new JButton("Refresh\r\n");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controller.refresh();
 			}
 		});
 		
-		JButton btnPost = new JButton("Post");
-		
 		JTextArea txtrPostHere = new JTextArea();
 		txtrPostHere.setText("Post to your (Jacob Territo's) wall");
+		
+		JButton btnPost = new JButton("Post");
+		btnPost.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.post(txtrPostHere.getText());
+			}
+		});
 		
 		JButton btnLogOut = new JButton("Log Out");
 		GroupLayout groupLayout = new GroupLayout(this);

@@ -24,13 +24,27 @@ public class Controller {
 	public void viewProfile(String username) {
 		current.close();
 		User subject = model.getUser(username);
-		current = new ProfileView(user,subject, model.usernameToName(subject.getFriends()),model.getFriendsPosts(),this);
+		current = new ProfileView(user,subject, model.readUsers(), model.getFriendsPosts(),this);
 		current.draw();
 	}
 	
 	public void register() {
 		current.close();
 		current = new RegisterView(this);
+		current.draw();
+	}
+	
+	public void home() {
+		current.close();
+		current = new ProfileView(null,model.getUser(user),model.readUsers(),model.getFriendsPosts(),this);
+		current.draw();
+	}
+	
+	public void refresh() {
+		User tempSubject = ((ProfileView)current).getSubject();
+		String tempUser = ((ProfileView)current).getViewer();
+		current.close();
+		current = new ProfileView(tempUser,model.getUser(tempSubject.getUsername()),model.readUsers(),model.getFriendsPosts(),this);
 		current.draw();
 	}
 	
@@ -51,11 +65,16 @@ public class Controller {
 	
 	public void like(String username, Long time) {
 		model.like(username, time);
-		viewProfile(((ProfileView)current).getUser());
+		refresh();
 	}
 	
 	public void changeImage(String imageLocation) {
 		model.changeImage(imageLocation);
+	}
+	
+	public void post(String text) {
+		model.post(text);
+		refresh();
 	}
 	
 }

@@ -1,5 +1,6 @@
 package project2;
 
+import java.util.Collections;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -29,12 +30,12 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 
 import project2.MenuBar;
-
+import java.util.*;
 
 public class ProfileView implements View{
 	private User user;
 	private ArrayList<Post> friendsPosts;
-	private ArrayList<String> friendsNames;
+	private HashMap<String,User> users;
 	private JFrame frame;
 	private Controller controller;
 	private String viewer;
@@ -46,11 +47,18 @@ public class ProfileView implements View{
 		return user.getUsername();
 	}
 	
-	public ProfileView(String viewer,User user,ArrayList<String> friendsNames, ArrayList<Post> friendsPosts, Controller controller) {
+	public User getSubject() {
+		return user;
+	}
+	
+	public String getViewer() {
+		return viewer;
+	}
+	public ProfileView(String viewer,User user, HashMap<String,User> users, ArrayList<Post> friendsPosts, Controller controller) {
 		frame = new JFrame();
 		this.user = user;
 		this.friendsPosts = friendsPosts;
-		this.friendsNames = friendsNames;
+		this.users = users;
 		this.controller = controller;
 		this.viewer = viewer;
 	}
@@ -78,15 +86,14 @@ public class ProfileView implements View{
 		friendsListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         friendsListScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		JButton temp;
-		for(int i = 0; i < friendsNames.size();i++){
-			final int index = i;
-			temp = new JButton(friendsNames.get(index));
+		for(String username :users.get(user.getUsername()).getFriends()){
+			temp = new JButton(users.get(username).getName());
 			temp.addActionListener(new
 			         ActionListener()
 			         {
 			            public void actionPerformed(ActionEvent event)
 			            {
-			               controller.viewProfile(user.getFriends().get(index));
+			               controller.viewProfile(users.get(username).getUsername());
 			            }
 			         });
 			friendsList.add(temp);
@@ -101,18 +108,18 @@ public class ProfileView implements View{
 		wallScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		PostPanel tempPanel;
 		if(viewer != null) {
-			for(Post post: user.getPosts()){
-				tempPanel = new PostPanel(user, post, friendsNames,controller);
-				userWall.add(tempPanel);
-			}
-		} else {
-			for(Post post: friendsPosts){
-				tempPanel = new PostPanel(user, post, friendsNames,controller);
-				userWall.add(tempPanel);
-			}
+			friendsPosts = user.getPosts();
+		}
+		Collections.sort(friendsPosts);
+		Post post;
+		for(int i = 0; i < friendsPosts.size();i++){
+			post = friendsPosts.get(i);
+			System.out.println(post.getText());
+			tempPanel = new PostPanel(user, post, users,controller);
+			userWall.add(tempPanel);
 		}
 		
-		MenuBar menuBar = new MenuBar();
+		MenuBar menuBar = new MenuBar(viewer,user,users,controller);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

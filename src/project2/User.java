@@ -45,7 +45,6 @@ public class User{
    
    public void post(String text) {
 	   posts.add(new Post(this,text));
-	   Collections.sort(posts);
    }
    
    public void like(Long time, String liker) {
