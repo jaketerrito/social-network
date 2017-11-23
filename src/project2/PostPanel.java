@@ -30,7 +30,6 @@ public class PostPanel extends JPanel {
 		
 		JTextArea txtrPostText = new JTextArea();
 		txtrPostText.setWrapStyleWord(true);
-		txtrPostText.setPreferredSize(new Dimension(500,100));
 		txtrPostText.setLineWrap(true);
 		txtrPostText.setEditable(false);
 		txtrPostText.setText(post.getText());
@@ -81,35 +80,36 @@ public class PostPanel extends JPanel {
 		});
 		btnUser.setBackground(new Color(255, 255, 255));
 		btnUser.setForeground(new Color(0, 0, 0));
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnUser)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(txtrPostText, GroupLayout.PREFERRED_SIZE, 348, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(txtTime, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnUser, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnLikes)))
-					.addGap(28))
+							.addComponent(txtTime, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtrPostText, GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+						.addComponent(btnLikes, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtrPostText, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnUser))
+						.addComponent(btnUser)
+						.addComponent(txtTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(txtTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnLikes))
-					.addGap(30))
+					.addComponent(txtrPostText, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnLikes)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
+
 
 	}
 

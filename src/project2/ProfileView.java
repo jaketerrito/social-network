@@ -6,6 +6,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+
+import project2.MenuBar;
 
 
 public class ProfileView implements View{
@@ -15,12 +38,16 @@ public class ProfileView implements View{
 	private JFrame frame;
 	private Controller controller;
 	private String viewer;
+	private JPanel contentPane;
+	private JTextField txtFriendsList;
+	private JTextField txtWall;
 	
 	public String getUser(){
 		return user.getUsername();
 	}
 	
 	public ProfileView(String viewer,User user,ArrayList<String> friendsNames, ArrayList<Post> friendsPosts, Controller controller) {
+		frame = new JFrame();
 		this.user = user;
 		this.friendsPosts = friendsPosts;
 		this.friendsNames = friendsNames;
@@ -33,46 +60,23 @@ public class ProfileView implements View{
 	}
 	
 	public void draw(){
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 1.0, Double.MIN_VALUE};
-		frame.getContentPane().setLayout(gridBagLayout);
+		frame.setBounds(100, 100, 896, 611);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		frame.setContentPane(contentPane);
 		
 		JLabel lblProfileNameAnd = new JLabel(user.getName());
 		lblProfileNameAnd.setIcon(new ImageIcon(user.getImage()));
 		lblProfileNameAnd.setVerticalTextPosition(JLabel.BOTTOM);
 		lblProfileNameAnd.setHorizontalTextPosition(JLabel.CENTER);
-		GridBagConstraints gbc_lblProfileNameAnd = new GridBagConstraints();
-		gbc_lblProfileNameAnd.insets = new Insets(0, 0, 5, 5);
-		gbc_lblProfileNameAnd.gridx = 0;
-		gbc_lblProfileNameAnd.gridy = 0;
-		frame.getContentPane().add(lblProfileNameAnd, gbc_lblProfileNameAnd);
-		
 		
 		JPanel friendsList = new JPanel();
 		friendsList.setLayout(new BoxLayout(friendsList, BoxLayout.Y_AXIS));
 		
 		JScrollPane friendsListScroll = new JScrollPane(friendsList);
-		GridBagConstraints gbc_friendsListScroll = new GridBagConstraints();
-		gbc_friendsListScroll.fill = GridBagConstraints.BOTH;
-		gbc_friendsListScroll.insets = new Insets(0, 0, 5, 5);
-		gbc_friendsListScroll.anchor = GridBagConstraints.WEST;
-		gbc_friendsListScroll.gridx = 0;
-		gbc_friendsListScroll.gridy = 1;
-		//friendsListScroll.setPreferredSize(new Dimension(150, 200));
-        friendsListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		friendsListScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         friendsListScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		frame.getContentPane().add(friendsListScroll, gbc_friendsListScroll);
-		
-		JTextField friendsTitle = new JTextField("Friends:");
-		friendsTitle.setEditable(false);
-
-		friendsListScroll.setColumnHeaderView(friendsTitle);
 		JButton temp;
 		for(int i = 0; i < friendsNames.size();i++){
 			final int index = i;
@@ -89,51 +93,72 @@ public class ProfileView implements View{
 		}
 		
 		
+
 		JPanel userWall = new JPanel();
 		userWall.setLayout(new BoxLayout(userWall, BoxLayout.Y_AXIS));
-		
-		JScrollPane userWallScroll = new JScrollPane(userWall);
-		GridBagConstraints gbc_userWallScroll = new GridBagConstraints();
-		gbc_userWallScroll.insets = new Insets(0, 0, 5, 0);
-		gbc_userWallScroll.fill = GridBagConstraints.BOTH;
-		gbc_userWallScroll.gridx = 2;
-		gbc_userWallScroll.gridy = 1;
-		frame.getContentPane().add(userWallScroll, gbc_userWallScroll);
-		userWallScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		userWallScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
-		JTextField wallTitle = new JTextField("Wall:");
-		wallTitle.setEditable(false);
-
-		userWallScroll.setColumnHeaderView(wallTitle);
+		JScrollPane wallScroll = new JScrollPane(userWall);
+		wallScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		wallScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		PostPanel tempPanel;
-		for(Post post: user.getPosts()){
-			tempPanel = new PostPanel(user, post, friendsNames,controller);
-			userWall.add(tempPanel);
-		}
-		
-		if(viewer.equals(user.getUsername())) {
-			JPanel newsFeed = new JPanel();
-			newsFeed.setLayout(new BoxLayout(newsFeed, BoxLayout.Y_AXIS));
-		
-			JScrollPane newsFeedScroll = new JScrollPane(newsFeed);
-			GridBagConstraints gbc_newsFeedScroll = new GridBagConstraints();
-			gbc_newsFeedScroll.fill = GridBagConstraints.BOTH;
-			gbc_newsFeedScroll.gridx = 2;
-			gbc_newsFeedScroll.gridy = 2;
-			frame.getContentPane().add(newsFeedScroll, gbc_newsFeedScroll);
-			newsFeedScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			newsFeedScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
-			JTextField feedTitle = new JTextField("News Feed:");
-			feedTitle.setEditable(false);
-
-			newsFeedScroll.setColumnHeaderView(feedTitle);
+		if(viewer != null) {
+			for(Post post: user.getPosts()){
+				tempPanel = new PostPanel(user, post, friendsNames,controller);
+				userWall.add(tempPanel);
+			}
+		} else {
 			for(Post post: friendsPosts){
 				tempPanel = new PostPanel(user, post, friendsNames,controller);
-				newsFeed.add(tempPanel);
+				userWall.add(tempPanel);
 			}
 		}
+		
+		MenuBar menuBar = new MenuBar();
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(lblProfileNameAnd, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(friendsListScroll, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(menuBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(wallScroll, GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE))
+					.addContainerGap(25, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblProfileNameAnd)
+						.addComponent(menuBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(wallScroll, GroupLayout.PREFERRED_SIZE, 367, GroupLayout.PREFERRED_SIZE)
+						.addComponent(friendsListScroll, GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		
+		
+		
+		txtWall = new JTextField();
+		txtWall.setEditable(false);
+		if(viewer != null) {
+			txtWall.setText("Wall:");
+		} else {
+			txtWall.setText("News Feed:");
+		}
+		wallScroll.setColumnHeaderView(txtWall);
+		txtWall.setColumns(10);
+		
+		txtFriendsList = new JTextField();
+		txtFriendsList.setEditable(false);
+		txtFriendsList.setText("Friends List:");
+		friendsListScroll.setColumnHeaderView(txtFriendsList);
+		txtFriendsList.setColumns(10);
+		contentPane.setLayout(gl_contentPane);
 		frame.pack();
 		frame.setVisible(true);
 	}
