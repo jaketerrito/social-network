@@ -100,7 +100,7 @@ public class ProfileView implements View{
 		}
 		
 		
-
+		
 		JPanel userWall = new JPanel();
 		userWall.setLayout(new BoxLayout(userWall, BoxLayout.Y_AXIS));
 		JScrollPane wallScroll = new JScrollPane(userWall);
@@ -121,10 +121,17 @@ public class ProfileView implements View{
 		MenuBar menuBar = new MenuBar(viewer,user,users,controller);
 		
 		JButton btnAddFriend = new JButton("Add Friend");
+		if(user.getFriends().contains(viewer)) {
+			btnAddFriend.setText("Remove Friend");
+		}
 		btnAddFriend.addActionListener( new ActionListener(){
             public void actionPerformed(ActionEvent event)
             {
-               controller.addFriend(user.getUsername());
+               if(user.getFriends().contains(viewer)) {
+            	   controller.removeFriend(user.getUsername());
+               }else {
+            	   controller.addFriend(user.getUsername());
+               }
             }
          });
 		
@@ -180,9 +187,14 @@ public class ProfileView implements View{
 		txtFriendsList.setColumns(10);
 		contentPane.setLayout(gl_contentPane);
 		
-		if(viewer == null || user.getUsername().equals(viewer) || user.getFriends().contains(viewer)) {
+		if(viewer == null || user.getUsername().equals(viewer)) {
 			btnAddFriend.setVisible(false);
 		}
+		
+		if(viewer != null && !user.getFriends().contains(viewer) && !user.getUsername().equals(viewer)) {
+			wallScroll.setVisible(false);
+		}
+		
 		frame.pack();
 		frame.setVisible(true);
 	}

@@ -29,6 +29,12 @@ public class Controller {
 		return false;
 	}
 	
+	public void logOut() {
+		 current.close();
+		 current = new LogoutView(this);
+		 current.draw();
+	}
+	
 	public void viewProfile(String username) {
 		current.close();
 		User subject = model.getUser(username);
@@ -83,6 +89,11 @@ public class Controller {
 	
 	public void addFriend(String username) {
 		model.addFriend(username);
+		refresh();
+	}
+	
+	public void removeFriend(String username) {
+		model.removeFriend(username);
 		refresh();
 	}
 	

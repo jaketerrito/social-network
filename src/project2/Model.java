@@ -105,6 +105,15 @@ public class Model {
 		user.toFile(usersDir);
 	}
 	
+	public void removeFriend(String friendName) {
+		User user = getUser(username);
+		user.removeFriend(friendName);
+		user.toFile(usersDir);
+		user = getUser(friendName);
+		user.removeFriend(username);
+		user.toFile(usersDir);
+	}
+	
 	public void like(String username,Long time) {
 		User user = getUser(username);
 		user.like(time,this.username);

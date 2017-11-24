@@ -61,7 +61,7 @@ public class MenuBar extends JPanel {
 		});
 		
 		JTextArea txtrPostHere = new JTextArea();
-		txtrPostHere.setText("Post to your (Jacob Territo's) wall");
+		txtrPostHere.setText("Post to your wall");
 		txtrPostHere.addMouseListener(new MouseAdapter() { 
 	          public void mousePressed(MouseEvent me) { 
 	        	  if(clicks == 0) {
@@ -88,6 +88,11 @@ public class MenuBar extends JPanel {
 		});
 		
 		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.logOut();
+			}
+		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
