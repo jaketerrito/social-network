@@ -114,20 +114,30 @@ public class ProfileView implements View{
 		Post post;
 		for(int i = 0; i < friendsPosts.size();i++){
 			post = friendsPosts.get(i);
-			System.out.println(post.getText());
 			tempPanel = new PostPanel(user, post, users,controller);
 			userWall.add(tempPanel);
 		}
 		
 		MenuBar menuBar = new MenuBar(viewer,user,users,controller);
+		
+		JButton btnAddFriend = new JButton("Add Friend");
+		btnAddFriend.addActionListener( new ActionListener(){
+            public void actionPerformed(ActionEvent event)
+            {
+               controller.addFriend(user.getUsername());
+            }
+         });
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(lblProfileNameAnd, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(friendsListScroll, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(lblProfileNameAnd, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(friendsListScroll, GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+						.addComponent(btnAddFriend))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(menuBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -139,12 +149,15 @@ public class ProfileView implements View{
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblProfileNameAnd)
-						.addComponent(menuBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(btnAddFriend)
+							.addPreferredGap(ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+							.addComponent(lblProfileNameAnd))
+						.addComponent(menuBar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(wallScroll, GroupLayout.PREFERRED_SIZE, 367, GroupLayout.PREFERRED_SIZE)
-						.addComponent(friendsListScroll, GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
+						.addComponent(friendsListScroll, GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		
@@ -166,6 +179,10 @@ public class ProfileView implements View{
 		friendsListScroll.setColumnHeaderView(txtFriendsList);
 		txtFriendsList.setColumns(10);
 		contentPane.setLayout(gl_contentPane);
+		
+		if(viewer == null || user.getUsername().equals(viewer) || user.getFriends().contains(viewer)) {
+			btnAddFriend.setVisible(false);
+		}
 		frame.pack();
 		frame.setVisible(true);
 	}

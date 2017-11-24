@@ -1,5 +1,7 @@
 package project2;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Controller {
 	Model model;
@@ -8,6 +10,12 @@ public class Controller {
 	public Controller(){
 		model = new Model("users");
 		current = new LoginView(this);
+		current.draw();
+	}
+	
+	public void search(String sub) {
+		current.close();
+		current = new SearchView(sub, model.readUsers(), model.search(sub), this);
 		current.draw();
 	}
 	
@@ -70,6 +78,12 @@ public class Controller {
 	
 	public void changeImage(String imageLocation) {
 		model.changeImage(imageLocation);
+		refresh();
+	}
+	
+	public void addFriend(String username) {
+		model.addFriend(username);
+		refresh();
 	}
 	
 	public void post(String text) {

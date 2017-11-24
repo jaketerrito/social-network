@@ -1,29 +1,35 @@
 package project2;
 
 import javax.swing.JPanel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.util.*;
+import java.awt.event.*;
 public class MenuBar extends JPanel {
 	private JTextField txtSearch;
+	private int clicks;
 
 	/**
 	 * Create the panel.
 	 */
 	public MenuBar(String viewer, User user, HashMap<String,User> users,Controller controller) {
-		
+		clicks = 0;
 		txtSearch = new JTextField();
 		txtSearch.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				controller.search(txtSearch.getText());
 			}
 		});
 		
@@ -56,6 +62,23 @@ public class MenuBar extends JPanel {
 		
 		JTextArea txtrPostHere = new JTextArea();
 		txtrPostHere.setText("Post to your (Jacob Territo's) wall");
+		txtrPostHere.addMouseListener(new MouseAdapter() { 
+	          public void mousePressed(MouseEvent me) { 
+	        	  if(clicks == 0) {
+	        		  txtrPostHere.setText("");
+	        	  }
+	        	  clicks++;
+	          } 
+	    }); 
+		txtrPostHere.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					controller.post(txtrPostHere.getText());
+				}
+			}
+		});
+
 		
 		JButton btnPost = new JButton("Post");
 		btnPost.addActionListener(new ActionListener() {
