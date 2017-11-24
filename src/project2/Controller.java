@@ -7,20 +7,20 @@ public class Controller {
 	Model model;
 	View current;
 	String user;
-	public Controller(){
-		model = new Model("users");
+	public Controller(Model model){
+		this.model = model;
 		current = new LoginView(this);
 		current.draw();
 	}
 	
 	public void search(String sub) {
 		current.close();
-		current = new SearchView(sub, model.readUsers(), model.search(sub), this);
+		current = new SearchView(sub, model.getUsers(), model.search(sub), this);
 		current.draw();
 	}
 	
 	public boolean login(String username, String password){
-		if (model.setUser(username, password)) {
+		if (model.login(username, password)) {
 			current.close();
 			user = username;
 			viewProfile(username);
@@ -31,6 +31,7 @@ public class Controller {
 	
 	public void logOut() {
 		 current.close();
+		 model.storeUsers();
 		 current = new LogoutView(this);
 		 current.draw();
 	}
@@ -38,7 +39,7 @@ public class Controller {
 	public void viewProfile(String username) {
 		current.close();
 		User subject = model.getUser(username);
-		current = new ProfileView(user,subject, model.readUsers(), model.getFriendsPosts(),this);
+		current = new ProfileView(user,subject, model.getUsers(), model.getFriendsPosts(user),this);
 		current.draw();
 	}
 	
@@ -50,7 +51,7 @@ public class Controller {
 	
 	public void home() {
 		current.close();
-		current = new ProfileView(null,model.getUser(user),model.readUsers(),model.getFriendsPosts(),this);
+		current = new ProfileView(null,model.getUser(user),model.getUsers(),model.getFriendsPosts(user),this);
 		current.draw();
 	}
 	
@@ -58,7 +59,7 @@ public class Controller {
 		User tempSubject = ((ProfileView)current).getSubject();
 		String tempUser = ((ProfileView)current).getViewer();
 		current.close();
-		current = new ProfileView(tempUser,model.getUser(tempSubject.getUsername()),model.readUsers(),model.getFriendsPosts(),this);
+		current = new ProfileView(tempUser,model.getUser(tempSubject.getUsername()),model.getUsers(),model.getFriendsPosts(user),this);
 		current.draw();
 	}
 	
@@ -78,27 +79,27 @@ public class Controller {
 	}
 	
 	public void like(String username, Long time) {
-		model.like(username, time);
+		model.like(user,username, time);
 		refresh();
 	}
 	
 	public void changeImage(String imageLocation) {
-		model.changeImage(imageLocation);
+		model.changeImage(user,imageLocation);
 		refresh();
 	}
 	
 	public void addFriend(String username) {
-		model.addFriend(username);
+		model.addFriend(user,username);
 		refresh();
 	}
 	
 	public void removeFriend(String username) {
-		model.removeFriend(username);
+		model.removeFriend(user,username);
 		refresh();
 	}
 	
 	public void post(String text) {
-		model.post(text);
+		model.post(user,text);
 		refresh();
 	}
 	

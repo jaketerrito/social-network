@@ -4,56 +4,61 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-//generate posts and users with a factory?
-//generate pieces of view with a factory?
+//the model is shared and certain functions need to be synchronized
+//make a singleton
 
 public class Model {
-	private String usersDir;
-	private String username;
+	private static Model modelInstance;
 	
-	public Model(String usersDir) {
+	private String usersDir;
+	private HashMap<String,User> userList;
+	
+	private Model(String usersDir) {
 		this.usersDir = usersDir;
+		readUsers();
 	}
 	
-	//makes list of users from database
-	//should not read if toFile is happening or if a function is readingUsers and using that list to write files
-	public HashMap<String,User> readUsers() {
+	public static Model getInstance(String usersDir) {
+		if(modelInstance == null) {
+			modelInstance = new Model(usersDir);
+		}
+		return modelInstance;
+	}
+	
+
+	public void readUsers() {
 		User temp;
-		HashMap<String,User> userList = new HashMap<String,User>();
+		userList = new HashMap<String,User>();
 		for(File file: new File(usersDir).listFiles()){
 			temp = new User(file);
 	        userList.put(temp.getUsername(), temp);
 		}
+	}
+	
+	public void storeUsers() {
+		for(String username:userList.keySet()) {
+			userList.get(username).toFile(usersDir);
+		}
+	}
+	
+	public HashMap<String,User> getUsers() {
 		return userList;
 	}
 	
 	
-	public void post(String post){
-		User user = getUser(username);
+	public void post(String currentUser, String post){
+		User user = getUser(currentUser);
 		user.post(post);
-		user.toFile(usersDir);
 	}
 	
-	public ArrayList<String> usernameToName(ArrayList<String> usernames){
-		ArrayList<String> names  = new ArrayList<String>();
-		HashMap<String,User> users = readUsers();
-		for(String username: usernames) {
-			names.add(users.get(username).getName());
-		}
-		return names;
-	}
-	
-	public ArrayList<Post> getFriendsPosts(){
+	public ArrayList<Post> getFriendsPosts(String currentUsername){
 		ArrayList<Post> posts = new ArrayList<Post>();
-		HashMap<String,User> users = readUsers();
-		User temp;
-		for(String friendname:users.get(username).getFriends()) {
-			temp = users.get(friendname);
-			if(temp == null) {
+		for(String friendname:userList.get(currentUsername).getFriends()) {
+			if(userList.get(friendname) == null) {
 				System.out.println("Error: invalid friend");
 				continue;
 			}
-			for(Post post:temp.getPosts()) {
+			for(Post post:userList.get(friendname).getPosts()) {
 				posts.add(post);
 			}
 		}
@@ -61,28 +66,24 @@ public class Model {
 	}
 	
 	public User getUser(String user) {
-		return readUsers().get(user);
+		return userList.get(user);
 	}
 	
-	public boolean setUser(String username, String password) {
-		this.username = username;
+	public boolean login(String username, String password) {
 		User temp = getUser(username);
 		if(temp == null) {
 			return false;
 		}
 		if(temp.isPassword(password)) {
 			return true;
-		}else {
-			temp = null;
 		}
 		return false;
 	}
 	
 	public ArrayList<String> search(String sub){
 		ArrayList<String> matches = new ArrayList<String>();
-		HashMap<String,User> users = readUsers();
-		for(String username: users.keySet()) {
-			if((users.get(username)).getName().toLowerCase().contains(sub.toLowerCase())) {
+		for(String username: userList.keySet()) {
+			if((userList.get(username)).getName().toLowerCase().contains(sub.toLowerCase())) {
 					matches.add(username);
 			}
 		}
@@ -93,46 +94,38 @@ public class Model {
 		if(imageLocation.equals("")) {
 			imageLocation = "defaultPic.png";
 		}
-		new User(username,password,name,imageLocation).toFile(usersDir);;
+		userList.put(username,new User(username,password,name,imageLocation));
+		userList.get(username).toFile(usersDir);
 	}
 	
-	public void addFriend(String friendName) {
-		User user = getUser(username);
+	public void addFriend(String currentUser, String friendName) {
+		User user = getUser(currentUser);
 		user.addFriend(friendName);
-		user.toFile(usersDir);
 		user = getUser(friendName);
-		user.addFriend(username);
-		user.toFile(usersDir);
+		user.addFriend(currentUser);
 	}
 	
-	public void removeFriend(String friendName) {
-		User user = getUser(username);
+	public void removeFriend(String currentUser, String friendName) {
+		User user = getUser(currentUser);
 		user.removeFriend(friendName);
-		user.toFile(usersDir);
 		user = getUser(friendName);
-		user.removeFriend(username);
-		user.toFile(usersDir);
+		user.removeFriend(currentUser);
 	}
 	
-	public void like(String username,Long time) {
+	public void like(String currentUser, String username,Long time) {
 		User user = getUser(username);
-		user.like(time,this.username);
-		user.toFile(usersDir);
+		user.like(time,currentUser);
 	}
 	
-	public void deactivate() {
+	public void deactivate(String currentUser) {
 		try {
-		    Files.delete(Paths.get(usersDir + "/" + username + ".txt"));
+		    Files.delete(Paths.get(usersDir + "/" + currentUser + ".txt"));
 		} catch (Exception x) {
 			System.out.println(x.getMessage());
 		}
 		//delete any reference to this user in likes or friends
-		HashMap<String,User> userList = readUsers();
-		User temp;
 		for(String username:userList.keySet()) {
-			temp = userList.get(username);
-			temp.removeFriend(this.username);
-			temp.toFile(usersDir);
+			userList.get(username).removeFriend(currentUser);
 		}
 	}
 	
@@ -159,9 +152,8 @@ public class Model {
 		return "";
 	}
 	
-	public void changeImage(String imageLocation) {
-		User user = getUser(username);
+	public void changeImage(String currentUser, String imageLocation) {
+		User user = getUser(currentUser);
 		user.setImage(imageLocation);
-		user.toFile(usersDir);
 	}
 }

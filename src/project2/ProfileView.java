@@ -28,10 +28,11 @@ import javax.swing.JScrollPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-
+import java.awt.image.BufferedImage;
 import project2.MenuBar;
 import java.util.*;
-
+import javax.imageio.*;
+import java.io.*;
 public class ProfileView implements View{
 	private User user;
 	private ArrayList<Post> friendsPosts;
@@ -75,7 +76,14 @@ public class ProfileView implements View{
 		frame.setContentPane(contentPane);
 		
 		JLabel lblProfileNameAnd = new JLabel(user.getName());
-		lblProfileNameAnd.setIcon(new ImageIcon(user.getImage()));
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(new File(user.getImage()));
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		Image dimg = img.getScaledInstance(200,200,Image.SCALE_SMOOTH);
+		lblProfileNameAnd.setIcon(new ImageIcon(dimg));
 		lblProfileNameAnd.setVerticalTextPosition(JLabel.BOTTOM);
 		lblProfileNameAnd.setHorizontalTextPosition(JLabel.CENTER);
 		
