@@ -190,7 +190,11 @@ public class SettingsView implements View{
 		btnDeactivateAccount = new JButton("Deactivate Account");
 		btnDeactivateAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				controller.deactivate();
+				if(!user.isPassword(String.copyValueOf(oldPasswordField.getPassword()))) {
+					txtIncorrectPassword.setText("Incorrect Password");
+				} else {
+					controller.deactivate();
+				}
 			}
 		});
 		

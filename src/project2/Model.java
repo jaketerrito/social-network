@@ -127,6 +127,7 @@ public class Model {
 		for(String username:userList.keySet()) {
 			userList.get(username).removeFriend(currentUser);
 		}
+		userList.remove(currentUser);
 	}
 	
 	public void changeUsername(String user,String username) {
