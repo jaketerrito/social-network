@@ -28,6 +28,22 @@ public class User{
 		}
    }
    
+   public void changeUsername(String oldName, String newName) {
+	   if(oldName.equals(username)) {
+		   username = newName;
+	   }
+	   if(friends.contains(oldName)) {
+		   friends.remove(oldName);
+		   friends.add(newName);
+	   }
+	   for(Post post: posts) {
+		   if(post.getLikes().contains(oldName)) {
+			   post.removeLike(oldName);
+			   post.addLike(newName);
+		   }
+		}
+   }
+   
    public void addFriend(String friendName) {
 	   if(friends.contains(friendName)) {
 		   return;
@@ -58,6 +74,14 @@ public class User{
    
    public boolean isPassword(String guess) {
 	   return password.equals(guess);
+   }
+   
+   public void setPassword(String password) {
+	   this.password = password;
+   }
+   
+   public void setName(String name) {
+	   this.name = name;
    }
    
    public void setImage(String imageLocation) {

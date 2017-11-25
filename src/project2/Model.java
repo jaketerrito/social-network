@@ -129,6 +129,19 @@ public class Model {
 		}
 	}
 	
+	public void changeUsername(String user,String username) {
+		try {
+		    Files.delete(Paths.get(usersDir + "/" + user + ".txt"));
+		} catch (Exception x) {
+			System.out.println(x.getMessage());
+		}
+		for(String name:userList.keySet()) {
+			userList.get(name).changeUsername(user,username);
+		}
+		userList.put(username, userList.get(user));
+		userList.remove(user);
+	}
+	
 	public String approveUsername(String username) {
 		if(username.equals("")) {
 			return "Need username";
@@ -155,5 +168,14 @@ public class Model {
 	public void changeImage(String currentUser, String imageLocation) {
 		User user = getUser(currentUser);
 		user.setImage(imageLocation);
+	}
+	
+	public void changePassword(String user,String password) {
+		userList.get(user).setPassword(password);
+	}
+	
+	public void changeName(String user,String name) {
+		userList.get(user).setName(name);
+		
 	}
 }

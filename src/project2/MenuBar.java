@@ -50,6 +50,7 @@ public class MenuBar extends JPanel {
 		JButton btnSettings = new JButton("Settings");
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controller.settings();
 			}
 		});
 		

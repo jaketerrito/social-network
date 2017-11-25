@@ -78,6 +78,14 @@ public class Controller {
 		return model.approvePassword(password);
 	}
 	
+	public String approveImage(String image) {
+		if(image.equals("")) {
+			return "Need image";
+		}
+		//if(NOT A VAlid image)
+		return ""; 
+	}
+	
 	public void like(String username, Long time) {
 		model.like(user,username, time);
 		refresh();
@@ -85,7 +93,18 @@ public class Controller {
 	
 	public void changeImage(String imageLocation) {
 		model.changeImage(user,imageLocation);
-		refresh();
+	}
+	
+	public void changeName(String user, String name) {
+		model.changeName(user,name);
+	}
+	
+	public void changeUsername(String user, String username) {
+		model.changeUsername(user,username);
+	}
+	
+	public void changePassword(String user, String password) {
+		model.changePassword(user,password);
 	}
 	
 	public void addFriend(String username) {
@@ -101,6 +120,17 @@ public class Controller {
 	public void post(String text) {
 		model.post(user,text);
 		refresh();
+	}
+	
+	public void settings() {
+		current.close();
+		current = new SettingsView(model.getUser(user),this);
+		current.draw();
+	}
+	
+	public void deactivate() {
+		model.deactivate(user);
+		logOut();
 	}
 	
 }
