@@ -58,7 +58,7 @@ public class SettingsView implements View{
 		
 		txtOldPassword = new JTextField();
 		txtOldPassword.setEditable(false);
-		txtOldPassword.setText("Old Password:");
+		txtOldPassword.setText("Current Password:");
 		txtOldPassword.setColumns(10);
 		
 		txtNewPassword = new JTextField();

@@ -43,11 +43,11 @@ public class PostPanelA extends JPanel {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnUser, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnUser, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(txtTime, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE))
-						.addComponent(txtrPostText, GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
-						.addComponent(btnLikes, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
+						.addComponent(txtrPostText, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+						.addComponent(btnLikes, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -61,7 +61,7 @@ public class PostPanelA extends JPanel {
 					.addComponent(txtrPostText, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnLikes)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(12, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 

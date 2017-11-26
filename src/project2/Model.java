@@ -128,6 +128,7 @@ public class Model {
 			userList.get(username).removeFriend(currentUser);
 		}
 		userList.remove(currentUser);
+		storeUsers();
 	}
 	
 	public void changeUsername(String user,String username) {

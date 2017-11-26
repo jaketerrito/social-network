@@ -102,6 +102,7 @@ public class Controller {
 	public void changeUsername(String user, String username) {
 		this.user = username; 
 		model.changeUsername(user,username);
+		model.storeUsers();
 	}
 	
 	public void changePassword(String user, String password) {
