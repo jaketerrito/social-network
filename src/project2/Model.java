@@ -136,11 +136,15 @@ public class Model {
 		} catch (Exception x) {
 			System.out.println(x.getMessage());
 		}
+		User temp = userList.get(user);
 		for(String name:userList.keySet()) {
 			userList.get(name).changeUsername(user,username);
 		}
-		userList.put(username, userList.get(user));
+		userList.put(username, temp);
 		userList.remove(user);
+		for(String hmm:userList.keySet()) {
+			System.out.println(hmm + " " + userList.get(hmm).getUsername());
+		}
 	}
 	
 	public String approveUsername(String username) {

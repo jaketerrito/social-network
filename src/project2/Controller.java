@@ -23,7 +23,7 @@ public class Controller {
 		if (model.login(username, password)) {
 			current.close();
 			user = username;
-			viewProfile(username);
+			home();
 			return true;
 		}
 		return false;
@@ -100,6 +100,7 @@ public class Controller {
 	}
 	
 	public void changeUsername(String user, String username) {
+		this.user = username; 
 		model.changeUsername(user,username);
 	}
 	

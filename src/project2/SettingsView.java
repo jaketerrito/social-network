@@ -41,10 +41,12 @@ public class SettingsView implements View{
 	private JButton btnDeactivateAccount;
 	private Controller controller;
 	private User user;
+	private String username;
 	
 	public SettingsView(User user,Controller controller) {
 		this.controller = controller;
 		this.user = user;
+		username = user.getUsername();
 	}
 	public void close() {
 		frame.dispose();
@@ -152,28 +154,31 @@ public class SettingsView implements View{
 					txtIncorrectPassword.setText("");
 				}
 				
-				txtUserFailMessage.setText(controller.approveUsername(textUsernameInput.getText()));
-				if(txtUserFailMessage.getText().equals("") && txtIncorrectPassword.getText().equals("")) {
-					controller.changeUsername(user.getUsername(),textUsernameInput.getText());
-				}
+		
 				txtPassFailMessage.setText(controller.approvePassword(String.copyValueOf(newPasswordField.getPassword())));
 				if(!(String.copyValueOf(newPasswordField.getPassword())).equals(String.copyValueOf(confirmPasswordField.getPassword()))){
             		txtPassFailMessage.setText("Does not match.");
             	}
 				if(txtPassFailMessage.getText().equals("") && txtIncorrectPassword.getText().equals("")) {
-					controller.changePassword(user.getUsername(),String.copyValueOf(newPasswordField.getPassword()));
+					controller.changePassword(username,String.copyValueOf(newPasswordField.getPassword()));
 				}
 				
 				if(textNewNameInput.getText().equals("")) {
 					textNameFailMessage.setText("Need name");
 				} else if (txtIncorrectPassword.getText().equals("")){
-					controller.changeName(user.getUsername(),textNewNameInput.getText());
+					controller.changeName(username,textNewNameInput.getText());
 				}
 				
 				
 				txtFailMessage.setText(controller.approveImage(txtImageInput.getText()));
 				if(txtFailMessage.getText().equals("") && txtIncorrectPassword.getText().equals("")) {
 					controller.changeImage(txtImageInput.getText());
+				}
+				
+				txtUserFailMessage.setText(controller.approveUsername(textUsernameInput.getText()));
+				if(txtUserFailMessage.getText().equals("") && txtIncorrectPassword.getText().equals("")) {
+					controller.changeUsername(username,textUsernameInput.getText());
+					username = textUsernameInput.getText();
 				}
 			}
 		});
