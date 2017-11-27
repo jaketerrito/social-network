@@ -172,8 +172,7 @@ public class Model {
 	}
 	
 	public void changeImage(String currentUser, String imageLocation) {
-		User user = getUser(currentUser);
-		user.setImage(imageLocation);
+		getUser(currentUser).setImage(imageLocation);
 	}
 	
 	public void changePassword(String user,String password) {
