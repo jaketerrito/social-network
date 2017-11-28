@@ -1,4 +1,4 @@
-package project2;
+/*package project2;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -25,9 +25,6 @@ public class ProfileViewA extends JFrame {
 	private JTextField txtFriendsList;
 	private JTextField txtWall;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -41,9 +38,7 @@ public class ProfileViewA extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public ProfileViewA(String viewer,User user,ArrayList<String> friendsNames, ArrayList<Post> friendsPosts, Controller controller) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 896, 611);
@@ -97,7 +92,7 @@ public class ProfileViewA extends JFrame {
 			}
 		}
 		
-		MenuBar menuBar = new MenuBar();
+z		MenuBar menuBar = new MenuBar();
 		
 		JButton btnAddFriend = new JButton("Add Friend");
 		
@@ -153,4 +148,4 @@ public class ProfileViewA extends JFrame {
 		txtFriendsList.setColumns(10);
 		contentPane.setLayout(gl_contentPane);
 	}
-}
+}*/
