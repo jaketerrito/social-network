@@ -2,57 +2,71 @@ package project2;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
+/**
+ * A JPanel with list of results from user's search
+ * @author jterrito
+ *
+ */
 public class SearchView extends JPanel{
 
 	private JTextField txtSearchForblah;
-	private JFrame frame;
-	private String term;
-	private HashMap<String,User> users;
-	private ArrayList<String> matches;
-	private Controller controller;
-	
-	public SearchView(String term, HashMap<String,User> users, ArrayList<String> matches, Controller controller) {
-		this.users = users;
-		this.term = term;
-		this.matches = matches;
-		this.controller = controller;
-	/*	frame = new JFrame();
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(100, 100, 452, 340);*/
+
+
+	/**
+	 * Creates a JPanel with search results for the given term from a list of the matching users. 
+	 * @param term
+	 * @param matches List of users returned from model's search method.
+	 * @param controller
+	 */
+	public SearchView(String term, ArrayList<User> matches, Controller controller) {
+		
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		
+		//Create's scrollable list of results, all clickable to view their profile.
 		JPanel matchList = new JPanel();
 		matchList.setLayout(new BoxLayout(matchList, BoxLayout.Y_AXIS));
-		
 		JScrollPane scrollPane = new JScrollPane(matchList);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		JButton temp;
-		for(String username : matches) {
-			temp = new JButton(users.get(username).getName());
+		BufferedImage img = null;
+		for(User user : matches) {
+			temp = new JButton(user.getName());
 			temp.addActionListener(new
 			         ActionListener()
 			         {
 			            public void actionPerformed(ActionEvent event)
 			            {
-			               controller.viewProfile(users.get(username).getUsername());
+			               controller.viewProfile(user.getUsername());
 			            }
 			         });
+			try {
+			    img = ImageIO.read(new File(user.getImage()));
+			} catch (IOException e) {
+			    e.printStackTrace();
+			}
+			Image dimg = img.getScaledInstance(20,20,Image.SCALE_SMOOTH);
+			temp.setIcon(new ImageIcon(dimg));
 			matchList.add(temp);
 		}
 		
@@ -68,6 +82,7 @@ public class SearchView extends JPanel{
 				controller.home();
 			}
 		});
+		
 		GroupLayout gl_contentPane = new GroupLayout(this);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)

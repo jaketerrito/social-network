@@ -14,7 +14,11 @@ import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.*;
-//exit and deactivate button
+/**
+ * A JPanel for updating user information: username, name, password, profile picture.
+ * @author jterrito
+ *
+ */
 public class SettingsView extends JPanel{
 	private JTextField txtOldPassword;
 	private JTextField txtNewPassword;
@@ -38,17 +42,16 @@ public class SettingsView extends JPanel{
 	private JPasswordField oldPasswordField;
 	private JButton btnBack;
 	private JButton btnDeactivateAccount;
-	private Controller controller;
-	private User user;
 	private String username;
 	
+	/**
+	 * Create's new settings panel to update the given user's information. Sends user inputs to controller.
+	 * @param user
+	 * @param controller
+	 */
 	public SettingsView(User user,Controller controller) {
-		this.controller = controller;
-		this.user = user;
+
 		username = user.getUsername();
-/*		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
 		
 		txtOldPassword = new JTextField();
 		txtOldPassword.setEditable(false);
@@ -142,14 +145,15 @@ public class SettingsView extends JPanel{
 		btnSaveUpdates = new JButton("Save Updates");
 		btnSaveUpdates.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//ALL THE ACTION! if empty do nothing 
+				
+				//Determines whether or not the correct password has been input. Won't save updates unless txtIncorrectPassword is ""
 				if(!user.isPassword(String.copyValueOf(oldPasswordField.getPassword()))) {
 					txtIncorrectPassword.setText("Incorrect Password");
 				} else {
 					txtIncorrectPassword.setText("");
 				}
 				
-		
+				//Changes password if new passwords match and are valid
 				txtPassFailMessage.setText(controller.approvePassword(String.copyValueOf(newPasswordField.getPassword())));
 				if(!(String.copyValueOf(newPasswordField.getPassword())).equals(String.copyValueOf(confirmPasswordField.getPassword()))){
             		txtPassFailMessage.setText("Does not match.");
@@ -158,6 +162,7 @@ public class SettingsView extends JPanel{
 					controller.changePassword(username,String.copyValueOf(newPasswordField.getPassword()));
 				}
 				
+				//Changes the user's name if there is a new name
 				if(textNewNameInput.getText().equals("")) {
 					textNameFailMessage.setText("Need name");
 				} else {
@@ -167,22 +172,26 @@ public class SettingsView extends JPanel{
 					controller.changeName(username,textNewNameInput.getText());
 				}
 				
+				//Changes the user's image path if there is a new/valid path
 				txtFailMessage.setText(controller.approveImage(txtImageInput.getText()));
 				if(txtFailMessage.getText().equals("") && txtIncorrectPassword.getText().equals("")) {
 					controller.changeImage(txtImageInput.getText());
 				}
 				
+				//Changes username if the new username is valid.
 				txtUserFailMessage.setText(controller.approveUsername(textUsernameInput.getText()));
 				if(txtUserFailMessage.getText().equals("") && txtIncorrectPassword.getText().equals("")) {
 					controller.changeUsername(username,textUsernameInput.getText());
 					username = textUsernameInput.getText();
 				}
+				
 				controller.buttonClick();
 			}
 		});
 		
 		
 		oldPasswordField = new JPasswordField();
+		
 		btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {

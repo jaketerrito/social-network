@@ -1,6 +1,0 @@
-username: jaketerrito
-password: bobobo
-name: Yake Terry
-image: defaultPic.png
-friends: jterrito,
-posts:

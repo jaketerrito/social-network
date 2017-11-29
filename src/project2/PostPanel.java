@@ -13,7 +13,6 @@ import java.util.*;
 import java.text.*;
 import java.awt.Dimension;
 import java.awt.Image;
-
 import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -21,15 +20,22 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
+
+/**
+ * A JPanel that displays a user's post. With username(linking to profile), text, time, and a like button(hover to see who liked)
+ * @author jterrito
+ *
+ */
 public class PostPanel extends JPanel {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtTime;
-	
+
 	/**
-	 * Create the panel.
+	 * Creates the JPanel for the given post.
+	 * @param user The user who posted this.
+	 * @param post The user's post.
+	 * @param users List of all users.
+	 * @param controller
 	 */
 	public PostPanel(User user,Post post,HashMap<String,User> users,Controller controller) {
 		setPreferredSize(new Dimension(500,180));
@@ -50,6 +56,7 @@ public class PostPanel extends JPanel {
 		txtTime.setText(sdf.format(resultdate));
 		txtTime.setColumns(10);
 		
+		//Creates like button that adds user to list of likes for this post. Displays who liked it when mouse hovers over.
 		JButton btnLikes = new JButton("Like... " + post.getLikes().size() + " others like this");
 		StringBuilder s = new StringBuilder();
 		int i = 1;
@@ -71,6 +78,7 @@ public class PostPanel extends JPanel {
 				controller.like(post.getUsername(),post.getTime());
 			}
 		});
+		
 		
 		JButton btnUser;
 		if(user.getUsername().equals(post.getUsername())) {

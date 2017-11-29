@@ -14,8 +14,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.*;
+
+/**
+ * A JPanel for registering new users.
+ * @author jterrito
+ *
+ */
 public class RegisterView extends JPanel{
-	private Controller controller;
 	private JTextField usernameInput;
 	private JTextField usernameFail;
 	private JTextField txtUsername_1;
@@ -31,14 +36,12 @@ public class RegisterView extends JPanel{
 	private JButton fileSelectorButton;
 	private JButton registerButton;
 	private JTextField nameFail;
+	
 	/**
-	 * @wbp.parser.entryPoint
+	 * Creates a JPanel that registers a new user from inputed username, password, name, and image.
+	 * @param controller The controller that will approve and add new user.
 	 */
 	public RegisterView (Controller controller) {
-		this.controller = controller;
-/*		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
@@ -198,6 +201,7 @@ public class RegisterView extends JPanel{
 		            }
 		         });
 		
+		//Register button, only works when all fields are valid.
 		registerButton = new JButton("  Register  ");
 		GridBagConstraints gbc_registerButton = new GridBagConstraints();
 		gbc_registerButton.anchor = GridBagConstraints.CENTER;
@@ -209,21 +213,25 @@ public class RegisterView extends JPanel{
 		         {
 		            public void actionPerformed(ActionEvent event)
 		            {
+		            	//Makes sure there is a name
 		            	if(nameInput.getText().equals("")) {
 		            		nameFail.setText("Need a name");
 		            	}else {
 		            		nameFail.setText("");
 		            	}
 		            	
+		            	//Approves username
 		            	String usernameProblem = controller.approveUsername(usernameInput.getText());
 		            	usernameFail.setText(usernameProblem);
-
+		            	
+		            	//Checks that passwords are matching and valid
 		            	String passwordProblem = controller.approvePassword(String.copyValueOf(passwordInput.getPassword()));
 		            	passwordConfirmationFail.setText(passwordProblem);
 		            	if(!(String.copyValueOf(passwordInput.getPassword())).equals(String.copyValueOf(passwordConfirmationInput.getPassword()))){
 		            		passwordConfirmationFail.setText("Does not match.");
 		            	}
 		            	
+		            	//If everything is valid, sends information to controller to generate new user.
 		            	if(passwordConfirmationFail.getText().equals("") && usernameFail.getText().equals("") && !(nameInput.getText().equals(""))) {
 		            		controller.registerUser(usernameInput.getText(),(String.copyValueOf(passwordInput.getPassword())),nameInput.getText(),imageInput.getText());
 		            	}

@@ -1,8 +1,6 @@
 username: aterrito
-password: pass
-name: Aaron Territo
+password: a
+name: Aaron
 image: defaultPic.png
 friends: jterrito,
 posts:
-1233214234321 ,jterrito, This is a test
-1348901278123 ,jterrito, I am aaron

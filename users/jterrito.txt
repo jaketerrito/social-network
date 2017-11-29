@@ -1,11 +1,15 @@
 username: jterrito
-password: pass
-name: JAKE Territo
+password: a
+name: Jake
 image: defaultPic.png
-friends: aterrito,kKyle,jaketerrito,anotherone,abcdefg,newguy,
+friends: aterrito,
 posts:
-1234587239103 ,aterrito, RIP lil peep
-1234567890123 ,jterrito,aterrito, I LIKE TURTLES 
-1511914515006 , Neweset
-1511914491478 , 
-1511914485070 , Post to your wall
+1511988293470 , YOYOYOYO
+1511986801877 , 
+1511986800557 , 
+1511986747148 , 
+1511986705524 , asdfasdf
+1511986626674 ,jterrito, asdf
+1511986616618 , asdf
+1511986609554 ,jterrito, asdf
+1511981950652 ,jterrito, 

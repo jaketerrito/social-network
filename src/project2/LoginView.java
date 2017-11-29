@@ -3,11 +3,13 @@ package project2;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
+/**
+ * A JPanel for logging into the network.
+ * @author jterrito
+ *
+ */
 public class LoginView extends JPanel {
-	private Controller controller;
 	public LoginView(Controller controller){
-		this.controller = controller;	
 	    final int FIELD_WIDTH = 25;
 	    JTextField name = new JTextField();
 	    name.setEditable(false);
@@ -36,7 +38,6 @@ public class LoginView extends JPanel {
 		    		}
 		        });
 	    
-	    
 	    loginButton.addActionListener(new
 	    	ActionListener()
 	    	{
@@ -52,8 +53,7 @@ public class LoginView extends JPanel {
 	    			}
 	    		}
 	        });
-	    //frame.setSize(400, 200);	      
-	    //frame.setPreferredSize(new Dimension(400,200)); 
+
 	      add(name);
 	      add(usrname);
 	      add(pass);

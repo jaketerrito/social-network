@@ -14,13 +14,15 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.util.*;
 import java.awt.event.*;
+/**
+ * A panel that provides search bar, home button, settings button, refresh button, logout button, and ability to post.
+ * @author jterrito
+ *
+ */
 public class MenuBar extends JPanel {
 	private JTextField txtSearch;
 	private int clicks;
 
-	/**
-	 * Create the panel.
-	 */
 	public MenuBar(String viewer, User user, HashMap<String,User> users,Controller controller) {
 		clicks = 0;
 		txtSearch = new JTextField();
@@ -33,6 +35,7 @@ public class MenuBar extends JPanel {
 			}
 		});
 		
+		//Goes to home. If already at home, goes to current user's profile.
 		JButton btnHome = new JButton("Home");
 		if(viewer == null) {
 			btnHome.setText(user.getName() + "'s Profile");
@@ -61,6 +64,7 @@ public class MenuBar extends JPanel {
 			}
 		});
 		
+		//Clears text on initial click. Posts text whe enter is hit.
 		JTextArea txtrPostHere = new JTextArea();
 		txtrPostHere.setText("Post to your wall");
 		txtrPostHere.addMouseListener(new MouseAdapter() { 
@@ -74,13 +78,13 @@ public class MenuBar extends JPanel {
 		txtrPostHere.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER && !(txtrPostHere.getText().equals(""))) {
 					controller.post(txtrPostHere.getText());
 				}
 			}
 		});
 
-		
+		//Posts on click if the user entered text.
 		JButton btnPost = new JButton("Post");
 		btnPost.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,6 +100,7 @@ public class MenuBar extends JPanel {
 				controller.logOut();
 			}
 		});
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
