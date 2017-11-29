@@ -13,10 +13,9 @@ import java.io.File;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
-
-public class RegisterView implements View{
+import javax.swing.*;
+public class RegisterView extends JPanel{
 	private Controller controller;
-	private JFrame frame;
 	private JTextField usernameInput;
 	private JTextField usernameFail;
 	private JTextField txtUsername_1;
@@ -37,21 +36,15 @@ public class RegisterView implements View{
 	 */
 	public RegisterView (Controller controller) {
 		this.controller = controller;
-	}
-
-	public void close() {
-		frame.dispose();
-	}
-	public void draw() {
-		frame = new JFrame();
+/*		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0};
 		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		frame.getContentPane().setLayout(gridBagLayout);
+		setLayout(gridBagLayout);
 		
 		txtUsername_1 = new JTextField();
 		txtUsername_1.setEditable(false);
@@ -61,7 +54,7 @@ public class RegisterView implements View{
 		gbc_txtUsername_1.insets = new Insets(0, 0, 5, 5);
 		gbc_txtUsername_1.gridx = 0;
 		gbc_txtUsername_1.gridy = 0;
-		frame.getContentPane().add(txtUsername_1, gbc_txtUsername_1);
+		add(txtUsername_1, gbc_txtUsername_1);
 		txtUsername_1.setColumns(10);
 		
 		usernameInput = new JTextField();
@@ -70,7 +63,7 @@ public class RegisterView implements View{
 		gbc_usernameInput.anchor = GridBagConstraints.WEST;
 		gbc_usernameInput.gridx = 1;
 		gbc_usernameInput.gridy = 0;
-		frame.getContentPane().add(usernameInput, gbc_usernameInput);
+		add(usernameInput, gbc_usernameInput);
 		usernameInput.setColumns(20);
 		
 		usernameFail = new JTextField();
@@ -80,7 +73,7 @@ public class RegisterView implements View{
 		gbc_usernameFail.insets = new Insets(0, 0, 5, 5);
 		gbc_usernameFail.gridx = 2;
 		gbc_usernameFail.gridy = 0;
-		frame.getContentPane().add(usernameFail, gbc_usernameFail);
+		add(usernameFail, gbc_usernameFail);
 		
 		txtPassword = new JTextField();
 		txtPassword.setEditable(false);
@@ -90,7 +83,7 @@ public class RegisterView implements View{
 		gbc_txtPassword.insets = new Insets(0, 0, 5, 5);
 		gbc_txtPassword.gridx = 0;
 		gbc_txtPassword.gridy = 1;
-		frame.getContentPane().add(txtPassword, gbc_txtPassword);
+		add(txtPassword, gbc_txtPassword);
 		txtPassword.setColumns(10);
 		
 		passwordInput = new JPasswordField();
@@ -100,7 +93,7 @@ public class RegisterView implements View{
 		gbc_passwordInput.insets = new Insets(0, 0, 5, 5);
 		gbc_passwordInput.gridx = 1;
 		gbc_passwordInput.gridy = 1;
-		frame.getContentPane().add(passwordInput, gbc_passwordInput);
+		add(passwordInput, gbc_passwordInput);
 		
 		txtConfirmPassword = new JTextField();
 		txtConfirmPassword.setEditable(false);
@@ -110,7 +103,7 @@ public class RegisterView implements View{
 		gbc_txtConfirmPassword.insets = new Insets(0, 0, 5, 5);
 		gbc_txtConfirmPassword.gridx = 0;
 		gbc_txtConfirmPassword.gridy = 2;
-		frame.getContentPane().add(txtConfirmPassword, gbc_txtConfirmPassword);
+		add(txtConfirmPassword, gbc_txtConfirmPassword);
 		txtConfirmPassword.setColumns(10);
 		
 		passwordConfirmationInput = new JPasswordField();
@@ -120,7 +113,7 @@ public class RegisterView implements View{
 		gbc_passwordConfirmationInput.insets = new Insets(0, 0, 5, 5);
 		gbc_passwordConfirmationInput.gridx = 1;
 		gbc_passwordConfirmationInput.gridy = 2;
-		frame.getContentPane().add(passwordConfirmationInput, gbc_passwordConfirmationInput);
+		add(passwordConfirmationInput, gbc_passwordConfirmationInput);
 		
 		passwordConfirmationFail = new JTextField();
 		passwordConfirmationFail.setEditable(false);
@@ -129,7 +122,7 @@ public class RegisterView implements View{
 		gbc_passwordConfirmationFail.insets = new Insets(0, 0, 5, 5);
 		gbc_passwordConfirmationFail.gridx = 2;
 		gbc_passwordConfirmationFail.gridy = 2;
-		frame.getContentPane().add(passwordConfirmationFail, gbc_passwordConfirmationFail);
+		add(passwordConfirmationFail, gbc_passwordConfirmationFail);
 		
 		
 		txtFullName = new JTextField();
@@ -140,7 +133,7 @@ public class RegisterView implements View{
 		gbc_txtFullName.insets = new Insets(0, 0, 5, 5);
 		gbc_txtFullName.gridx = 0;
 		gbc_txtFullName.gridy = 3;
-		frame.getContentPane().add(txtFullName, gbc_txtFullName);
+		add(txtFullName, gbc_txtFullName);
 		txtFullName.setColumns(10);
 		
 		nameFail = new JTextField();
@@ -150,7 +143,7 @@ public class RegisterView implements View{
 		gbc_nameFail.insets = new Insets(0, 0, 5, 5);
 		gbc_nameFail.gridx = 2;
 		gbc_nameFail.gridy = 3;
-		frame.getContentPane().add(nameFail, gbc_nameFail);
+		add(nameFail, gbc_nameFail);
 		
 		nameInput = new JTextField();
 		GridBagConstraints gbc_nameInput = new GridBagConstraints();
@@ -158,7 +151,7 @@ public class RegisterView implements View{
 		gbc_nameInput.anchor = GridBagConstraints.WEST;
 		gbc_nameInput.gridx = 1;
 		gbc_nameInput.gridy = 3;
-		frame.getContentPane().add(nameInput, gbc_nameInput);
+		add(nameInput, gbc_nameInput);
 		nameInput.setColumns(20);
 		
 		txtImage = new JTextField();
@@ -169,7 +162,7 @@ public class RegisterView implements View{
 		gbc_txtImage.insets = new Insets(0, 0, 0, 5);
 		gbc_txtImage.gridx = 0;
 		gbc_txtImage.gridy = 4;
-		frame.getContentPane().add(txtImage, gbc_txtImage);
+		add(txtImage, gbc_txtImage);
 		txtImage.setColumns(10);
 		
 		imageInput = new JTextField();
@@ -178,7 +171,7 @@ public class RegisterView implements View{
 		gbc_imageInput.anchor = GridBagConstraints.WEST;
 		gbc_imageInput.gridx = 1;
 		gbc_imageInput.gridy = 4;
-		frame.getContentPane().add(imageInput, gbc_imageInput);
+		add(imageInput, gbc_imageInput);
 		imageInput.setColumns(20);
 		
 		fileSelectorButton = new JButton("Choose Image");
@@ -186,7 +179,7 @@ public class RegisterView implements View{
 		gbc_fileSelectorButton.anchor = GridBagConstraints.WEST;
 		gbc_fileSelectorButton.gridx = 2;
 		gbc_fileSelectorButton.gridy = 4;
-		frame.getContentPane().add(fileSelectorButton, gbc_fileSelectorButton);
+		add(fileSelectorButton, gbc_fileSelectorButton);
 		fileSelectorButton.addActionListener(new
 		         ActionListener()
 		         {
@@ -201,6 +194,7 @@ public class RegisterView implements View{
 		            		System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 		            		imageInput.setText(selectedFile.getAbsolutePath());
 		            	}
+		            	controller.buttonClick();
 		            }
 		         });
 		
@@ -209,7 +203,7 @@ public class RegisterView implements View{
 		gbc_registerButton.anchor = GridBagConstraints.CENTER;
 		gbc_registerButton.gridx = 1;
 		gbc_registerButton.gridy = 5;
-		frame.getContentPane().add(registerButton, gbc_registerButton);
+		add(registerButton, gbc_registerButton);
 		registerButton.addActionListener(new
 		         ActionListener()
 		         {
@@ -236,13 +230,12 @@ public class RegisterView implements View{
 		            	
 		            	passwordInput.setText("");
 	    				passwordConfirmationInput.setText("");
-		            	frame.pack();
+	    				controller.buttonClick();
 		            }
 		         });
 		
 		
-		frame.pack();
-		frame.setVisible(true);
+		
 	}
 
 }

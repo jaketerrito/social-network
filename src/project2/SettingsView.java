@@ -13,10 +13,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
+import javax.swing.*;
 //exit and deactivate button
-public class SettingsView implements View{
-	private JFrame frame;
+public class SettingsView extends JPanel{
 	private JTextField txtOldPassword;
 	private JTextField txtNewPassword;
 	private JTextField txtConfirmNewPassword;
@@ -47,14 +46,9 @@ public class SettingsView implements View{
 		this.controller = controller;
 		this.user = user;
 		username = user.getUsername();
-	}
-	public void close() {
-		frame.dispose();
-	}
-	public void draw() {
-		frame = new JFrame();
+/*		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);*/
 		
 		txtOldPassword = new JTextField();
 		txtOldPassword.setEditable(false);
@@ -119,6 +113,7 @@ public class SettingsView implements View{
             		System.out.println("Selected file: " + selectedFile.getAbsolutePath());
             		txtImageInput.setText(selectedFile.getAbsolutePath());
             	}
+            	controller.buttonClick();
 			}
 		});
 		
@@ -165,10 +160,12 @@ public class SettingsView implements View{
 				
 				if(textNewNameInput.getText().equals("")) {
 					textNameFailMessage.setText("Need name");
-				} else if (txtIncorrectPassword.getText().equals("")){
+				} else {
+					textNameFailMessage.setText("");
+				}
+				if (txtIncorrectPassword.getText().equals("")){
 					controller.changeName(username,textNewNameInput.getText());
 				}
-				
 				
 				txtFailMessage.setText(controller.approveImage(txtImageInput.getText()));
 				if(txtFailMessage.getText().equals("") && txtIncorrectPassword.getText().equals("")) {
@@ -180,6 +177,7 @@ public class SettingsView implements View{
 					controller.changeUsername(username,textUsernameInput.getText());
 					username = textUsernameInput.getText();
 				}
+				controller.buttonClick();
 			}
 		});
 		
@@ -203,7 +201,7 @@ public class SettingsView implements View{
 			}
 		});
 		
-		GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -305,7 +303,6 @@ public class SettingsView implements View{
 						.addComponent(btnBack))
 					.addContainerGap())
 		);
-		frame.getContentPane().setLayout(groupLayout);
-		frame.setVisible(true);
+		setLayout(groupLayout);
 	}
 }

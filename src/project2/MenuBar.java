@@ -84,7 +84,9 @@ public class MenuBar extends JPanel {
 		JButton btnPost = new JButton("Post");
 		btnPost.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.post(txtrPostHere.getText());
+				if(!(txtrPostHere.getText().equals("")) && !(txtrPostHere.getText().equals("Post to your wall"))){
+					controller.post(txtrPostHere.getText());
+				}
 			}
 		});
 		
@@ -99,7 +101,7 @@ public class MenuBar extends JPanel {
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(19)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 77, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)

@@ -2,5 +2,5 @@ username: newguy
 password: pass
 name: Guy
 image: defaultPic.png
-friends: jterrito
+friends: jterrito,
 posts:

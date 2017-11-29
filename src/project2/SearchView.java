@@ -16,9 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 
-public class SearchView implements View{
+public class SearchView extends JPanel{
 
-	private JPanel contentPane;
 	private JTextField txtSearchForblah;
 	private JFrame frame;
 	private String term;
@@ -31,21 +30,11 @@ public class SearchView implements View{
 		this.term = term;
 		this.matches = matches;
 		this.controller = controller;
-		frame = new JFrame();
-	}
-	
-	public void close() {
-		frame.dispose();
-	}
-		
-	public void draw() {
-		
+	/*	frame = new JFrame();
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(100, 100, 452, 340);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		frame.setContentPane(contentPane);
+		frame.setBounds(100, 100, 452, 340);*/
+		setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		JPanel matchList = new JPanel();
 		matchList.setLayout(new BoxLayout(matchList, BoxLayout.Y_AXIS));
@@ -79,7 +68,7 @@ public class SearchView implements View{
 				controller.home();
 			}
 		});
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		GroupLayout gl_contentPane = new GroupLayout(this);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -97,6 +86,6 @@ public class SearchView implements View{
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 257, GroupLayout.PREFERRED_SIZE))
 		);
-		contentPane.setLayout(gl_contentPane);
+		setLayout(gl_contentPane);
 	}
 }

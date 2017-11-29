@@ -32,6 +32,7 @@ public class PostPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public PostPanel(User user,Post post,HashMap<String,User> users,Controller controller) {
+		setPreferredSize(new Dimension(500,180));
 		setBackground(new Color(192, 192, 192));
 		setBorder(new EtchedBorder(EtchedBorder.LOWERED, Color.BLACK, null));
 		
@@ -108,7 +109,7 @@ public class PostPanel extends JPanel {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(txtTime, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE))
 						.addComponent(txtrPostText, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-						.addComponent(btnLikes, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE))
+						.addComponent(btnLikes, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 230, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(

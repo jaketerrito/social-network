@@ -2,6 +2,6 @@ username: kKyle
 password: pass
 name: Kyle
 image: defaultPic.png
-friends: jterrito
+friends: jterrito,
 posts:
-1511207453626 , Yarharhar
+1511207453626 ,jterrito, Yarharhar

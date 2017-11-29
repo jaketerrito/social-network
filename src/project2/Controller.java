@@ -2,26 +2,37 @@ package project2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import javax.swing.*;
 public class Controller {
 	Model model;
-	View current;
 	String user;
+	JFrame frame;
 	public Controller(Model model){
+		frame  = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 900, 600);
 		this.model = model;
-		current = new LoginView(this);
-		current.draw();
+		frame.setContentPane(new LoginView(this));
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
+	public void exit(){
+		frame.dispose();
+		model.storeUsers();
+	}
+	
+	public void buttonClick(){
+		frame.pack();
 	}
 	
 	public void search(String sub) {
-		current.close();
-		current = new SearchView(sub, model.getUsers(), model.search(sub), this);
-		current.draw();
+		frame.setContentPane(new SearchView(sub, model.getUsers(), model.search(sub), this));
+		frame.pack();
 	}
 	
 	public boolean login(String username, String password){
 		if (model.login(username, password)) {
-			current.close();
 			user = username;
 			home();
 			return true;
@@ -30,44 +41,38 @@ public class Controller {
 	}
 	
 	public void logOut() {
-		 current.close();
 		 model.storeUsers();
-		 current = new LogoutView(this);
-		 current.draw();
+		 frame.setContentPane(new LogoutView(this));
+		 frame.pack();
 	}
 	
 	public void viewProfile(String username) {
-		current.close();
 		User subject = model.getUser(username);
-		current = new ProfileView(user,subject, model.getUsers(), model.getFriendsPosts(user),this);
-		current.draw();
+		frame.setContentPane(new ProfileView(user,subject, model.getUsers(), model.getFriendsPosts(user),this));
+		frame.pack();
 	}
 	
 	public void register() {
-		current.close();
-		current = new RegisterView(this);
-		current.draw();
+		frame.setContentPane(new RegisterView(this));
+		frame.pack();
 	}
 	
 	public void home() {
-		current.close();
-		current = new ProfileView(null,model.getUser(user),model.getUsers(),model.getFriendsPosts(user),this);
-		current.draw();
+		frame.setContentPane(new ProfileView(null,model.getUser(user),model.getUsers(),model.getFriendsPosts(user),this));
+		frame.pack();
 	}
 	
 	public void refresh() {
-		User tempSubject = ((ProfileView)current).getSubject();
-		String tempUser = ((ProfileView)current).getViewer();
-		current.close();
-		current = new ProfileView(tempUser,model.getUser(tempSubject.getUsername()),model.getUsers(),model.getFriendsPosts(user),this);
-		current.draw();
+		User tempSubject = ((ProfileView)frame.getContentPane()).getSubject();
+		String tempUser = ((ProfileView)frame.getContentPane()).getViewer();
+		frame.setContentPane(new ProfileView(tempUser,model.getUser(tempSubject.getUsername()),model.getUsers(),model.getFriendsPosts(user),this));
+		frame.pack();
 	}
 	
 	public void registerUser(String username,String password,String name, String imageLocation) {
 		model.register(username, password, name, imageLocation);
-		current.close();
-		current = new LoginView(this);
-		current.draw();
+		frame.setContentPane(new LoginView(this));
+		frame.pack();
 	}
 	
 	public String approveUsername(String username) {
@@ -125,9 +130,8 @@ public class Controller {
 	}
 	
 	public void settings() {
-		current.close();
-		current = new SettingsView(model.getUser(user),this);
-		current.draw();
+		frame.setContentPane(new SettingsView(model.getUser(user),this));
+		frame.pack();
 	}
 	
 	public void deactivate() {

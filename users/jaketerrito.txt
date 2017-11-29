@@ -2,5 +2,5 @@ username: jaketerrito
 password: bobobo
 name: Yake Terry
 image: defaultPic.png
-friends: jterrito
+friends: jterrito,
 posts:

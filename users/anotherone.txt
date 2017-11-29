@@ -2,5 +2,5 @@ username: anotherone
 password: pass
 name: DJ kahled
 image: defaultPic.png
-friends: jterrito
+friends: jterrito,
 posts:

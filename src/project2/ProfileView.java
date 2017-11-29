@@ -33,14 +33,12 @@ import project2.MenuBar;
 import java.util.*;
 import javax.imageio.*;
 import java.io.*;
-public class ProfileView implements View{
+public class ProfileView extends JPanel{
 	private User user;
 	private ArrayList<Post> friendsPosts;
 	private HashMap<String,User> users;
-	private JFrame frame;
 	private Controller controller;
 	private String viewer;
-	private JPanel contentPane;
 	private JTextField txtFriendsList;
 	private JTextField txtWall;
 	
@@ -56,13 +54,12 @@ public class ProfileView implements View{
 		return viewer;
 	}
 	public ProfileView(String viewer,User user, HashMap<String,User> users, ArrayList<Post> friendsPosts, Controller controller) {
-		frame = new JFrame();
 		this.user = user;
 		this.friendsPosts = friendsPosts;
 		this.users = users;
 		this.controller = controller;
 		this.viewer = viewer;
-	}
+/*	}
 	
 	public void close() {
 		frame.dispose();
@@ -73,7 +70,7 @@ public class ProfileView implements View{
 		frame.setBounds(100, 100, 896, 611);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		frame.setContentPane(contentPane);
+		frame.setContentPane(contentPane); */
 		
 		JLabel lblProfileNameAnd = new JLabel(user.getName());
 		BufferedImage img = null;
@@ -143,7 +140,7 @@ public class ProfileView implements View{
             }
          });
 		
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		GroupLayout gl_contentPane = new GroupLayout(this);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -193,7 +190,7 @@ public class ProfileView implements View{
 		txtFriendsList.setText("Friends List:");
 		friendsListScroll.setColumnHeaderView(txtFriendsList);
 		txtFriendsList.setColumns(10);
-		contentPane.setLayout(gl_contentPane);
+		setLayout(gl_contentPane);
 		
 		if(viewer == null || user.getUsername().equals(viewer)) {
 			btnAddFriend.setVisible(false);
@@ -202,8 +199,8 @@ public class ProfileView implements View{
 		if(viewer != null && !user.getFriends().contains(viewer) && !user.getUsername().equals(viewer)) {
 			wallScroll.setVisible(false);
 		}
-		
+		/*
 		frame.pack();
-		frame.setVisible(true);
+		frame.setVisible(true);*/
 	}
 }

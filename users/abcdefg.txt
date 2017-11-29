@@ -2,5 +2,5 @@ username: abcdefg
 password: 1234
 name: ABD CSD
 image: defaultPic.png
-friends: jterrito
+friends: jterrito,
 posts:

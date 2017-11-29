@@ -4,19 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class LoginView implements View {
+public class LoginView extends JPanel {
 	private Controller controller;
-	private JFrame frame;
 	public LoginView(Controller controller){
-		this.controller = controller;
-	}
-	
-	public void close() {
-		frame.dispose();
-	}
-	
-	public void draw  () {		
-		frame = new JFrame();
+		this.controller = controller;	
 	    final int FIELD_WIDTH = 25;
 	    JTextField name = new JTextField();
 	    name.setEditable(false);
@@ -52,26 +43,24 @@ public class LoginView implements View {
 	    		public void actionPerformed(ActionEvent event)
 	    		{
 	    			if(controller.login(usrname.getText(),String.copyValueOf(usrpass.getPassword()))){
-	    				frame.setVisible(false);
+	    				setVisible(false);
 	    			}else{
 	    				usrname.setText("");
 	    				usrpass.setText("");
-	    				frame.add(wrong);
-	    				frame.pack();
+	    				add(wrong);
+	    				controller.buttonClick();
 	    			}
 	    		}
 	        });
-	      frame.setSize(400, 200);	      
-	      frame.setPreferredSize(new Dimension(400,200)); 
-	      frame.add(name);
-	      frame.add(usrname);
-	      frame.add(pass);
-	      frame.add(usrpass);
-	      frame.add(loginButton);
-	      frame.add(registerButton);
-	      frame.setLayout(new FlowLayout());
-	      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	      frame.setVisible(true);
+	    //frame.setSize(400, 200);	      
+	    //frame.setPreferredSize(new Dimension(400,200)); 
+	      add(name);
+	      add(usrname);
+	      add(pass);
+	      add(usrpass);
+	      add(loginButton);
+	      add(registerButton);
+	      setLayout(new FlowLayout());
 	   }
 	}
 
