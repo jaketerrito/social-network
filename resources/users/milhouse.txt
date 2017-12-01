@@ -1,0 +1,7 @@
+username: milhouse
+password: a
+name: Milhouse
+image: /home/jterrito/Pictures/millhouse.jpg
+friends: bart,lisa,
+posts:
+1512162382937 ,milhouse,lisa, Everything's comin' up Milhouse!

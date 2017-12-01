@@ -134,7 +134,7 @@ public class Model {
 	 */
 	public void register(String username, String password, String name, String imageLocation){
 		if(imageLocation.equals("")) {
-			imageLocation = "defaultPic.png";
+			imageLocation = "resources/defaultPic.png";
 		}
 		userList.put(username,new User(username,password,name,imageLocation));
 		userList.get(username).toFile(usersDir);

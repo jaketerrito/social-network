@@ -1,0 +1,7 @@
+username: burns
+password: a
+name: Montgomery Burns
+image: /home/jterrito/Pictures/burns.jpg
+friends: homer,lisa,
+posts:
+1512162553743 , No need to worry about the three eyed fish!

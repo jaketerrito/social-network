@@ -9,7 +9,7 @@ import org.junit.Test;
 
 public class ModelTests {
 	public static void main(String args[]) throws InterruptedException {
-		Model model = Model.getInstance("testUsers");
+		Model model = Model.getInstance("resources/testUsers");
 		postSortingTest();
 		clear();
 		deactivateTest(model);
@@ -22,7 +22,7 @@ public class ModelTests {
 	}
 	
 	private static void clear(){
-		for(File file: new File("testUsers").listFiles()){
+		for(File file: new File("resources/testUsers").listFiles()){
 			try {
 			    Files.delete(file.toPath());
 			} catch (Exception x) {
@@ -117,13 +117,13 @@ public class ModelTests {
 		model.register("lake", "pass", "lake smith", "asd");
 		model.register("snake", "pass", "snake derrito", "asd");
 		
-		assertTrue(model.search("Ake").contains("jake"));
-		assertTrue(model.search("akE").contains("lake"));
-		assertTrue(model.search("aKe").contains("snake"));
+		assertTrue(model.search("Ake").contains(model.getUser("jake")));
+		assertTrue(model.search("akE").contains(model.getUser("lake")));
+		assertTrue(model.search("aKe").contains(model.getUser("snake")));
 		
-		assertTrue(model.search("eRrito").contains("snake"));
-		assertTrue(model.search("erritO").contains("jake"));
-		assertFalse(model.search("errito").contains("lake"));
+		assertTrue(model.search("eRrito").contains(model.getUser("snake")));
+		assertTrue(model.search("erritO").contains(model.getUser("jake")));
+		assertFalse(model.search("errito").contains(model.getUser("lake")));
 	}
 
 }

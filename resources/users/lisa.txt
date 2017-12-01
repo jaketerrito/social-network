@@ -1,0 +1,7 @@
+username: lisa
+password: a
+name: Lisa Simpson
+image: /home/jterrito/Pictures/lisa.png
+friends: homer,bart,krusty,milhouse,burns,flanders,
+posts:
+1512161411434 ,lisa, I'm so good at playing the saxophone!

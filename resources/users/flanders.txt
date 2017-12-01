@@ -1,0 +1,7 @@
+username: flanders
+password: a
+name: Ned Flanders
+image: /home/jterrito/Pictures/flanders.jpg
+friends: homer,lisa,
+posts:
+1512162669638 , Hey-Diddly-Ho! I'm off to church !

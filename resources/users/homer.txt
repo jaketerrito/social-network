@@ -1,0 +1,8 @@
+username: homer
+password: a
+name: Homer Simpson
+image: /home/jterrito/Pictures/homer.jpg
+friends: lisa,bart,krusty,burns,flanders,
+posts:
+1512162149835 ,krusty, Having a great time at Moe's. Woohoo!
+1512161193471 ,lisa, D'oh!

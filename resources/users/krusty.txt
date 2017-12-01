@@ -1,0 +1,7 @@
+username: krusty
+password: a
+name: Krusty the Clown
+image: /home/jterrito/Pictures/krusty.jpg
+friends: bart,lisa,homer,
+posts:
+1512162267666 ,lisa, Hey kids! Don't forget to watch my Krusty the Clown Show tonight!

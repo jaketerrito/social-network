@@ -133,6 +133,7 @@ public class ProfileView extends JPanel{
 		if(user.getFriends().contains(viewer)) {
 			btnAddFriend.setText("Remove Friend");
 		}
+		System.out.println(viewer + user.getUsername());
 		btnAddFriend.addActionListener( new ActionListener(){
             public void actionPerformed(ActionEvent event)
             {
@@ -177,7 +178,17 @@ public class ProfileView extends JPanel{
 					.addContainerGap())
 		);
 		
-		
+		//if at home or viewing your own profile, add friend shouldn't be there
+		if(viewer == null || user.getUsername().equals(viewer)) {
+			btnAddFriend.setVisible(false);
+		} else{
+			btnAddFriend.setVisible(true);
+		}
+				
+		//Determines whether or not this user and viewer are friends and if the wall is visible to the viewer.
+		if(viewer != null && !user.getFriends().contains(viewer) && !user.getUsername().equals(viewer)) {
+			wallScroll.setVisible(false);
+		}
 		
 		txtWall = new JTextField();
 		txtWall.setEditable(false);
@@ -196,14 +207,5 @@ public class ProfileView extends JPanel{
 		txtFriendsList.setColumns(10);
 		setLayout(gl_contentPane);
 		
-		//if at home or viewing your own profile, add friend shouldn't be there
-		if(viewer == null || user.getUsername().equals(viewer)) {
-			btnAddFriend.setVisible(false);
-		}
-		
-		//Determines whether or not this user and viewer are friends and if the wall is visible to the viewer.
-		if(viewer != null && !user.getFriends().contains(viewer) && !user.getUsername().equals(viewer)) {
-			wallScroll.setVisible(false);
-		}
 	}
 }

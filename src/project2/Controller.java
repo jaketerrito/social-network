@@ -102,7 +102,7 @@ public class Controller {
 	 */
 	public void viewProfile(String user) {
 		User subject = model.getUser(user);
-		frame.setContentPane(new ProfileView(user,subject, model.getUsers(), model.getFriendsPosts(user),this));
+		frame.setContentPane(new ProfileView(this.user,subject, model.getUsers(), model.getFriendsPosts(user),this));
 		frame.pack();
 	}
 	

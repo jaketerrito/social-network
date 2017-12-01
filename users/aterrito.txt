@@ -1,6 +1,0 @@
-username: aterrito
-password: a
-name: Aaron
-image: defaultPic.png
-friends: jterrito,
-posts:

@@ -1,0 +1,7 @@
+username: bart
+password: a
+name: Bart Simpson
+image: /home/jterrito/Pictures/bart.png
+friends: homer,lisa,krusty,milhouse,
+posts:
+1512162066780 ,krusty,lisa, Eat my shorts!
