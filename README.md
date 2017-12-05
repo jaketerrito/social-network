@@ -6,6 +6,8 @@ The controller uses data from the model in order to generate the view (ProfileVi
 and notifies the model whenever there is new user input. The model stores user data dynamically during runtime,
 but writes to files when the program is closed.
 
+The user interface, although not the most aesthetically pleasing, is simple and is easily used with a mouse and keyboard.
+
 User data is stored in a file, here's an example for Bart Simpson.
 
      username: bart
